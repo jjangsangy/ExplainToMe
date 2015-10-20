@@ -3,6 +3,9 @@ Explain To Me
 
 Text Summarization for Humans
 
+
+.. image:: static/watson.jpg
+
 What is it?
 ===========
 

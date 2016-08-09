@@ -4,17 +4,18 @@ from __future__ import print_function
 import os
 import re
 
-import eatiht
 import requests
 from breadability.readable import Article
+from goose import Goose
 from requests import Request, Session
 from requests.adapters import HTTPAdapter
-from six.moves import urllib
 from sumy.models.dom import ObjectDocumentModel, Paragraph, Sentence
 from sumy.nlp.stemmers import Stemmer
 from sumy.parsers.parser import DocumentParser
 from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.utils import cached_property, get_stop_words
+
+from six.moves import urllib
 
 from .webapi import HTTPURLEndpoints
 
@@ -269,7 +270,7 @@ class HtmlParser(DocumentParser):
         return ObjectDocumentModel(paragraphs)
 
 
-def summarizer(parser, sentences, language='english'):
+def run_summarizer(parser, sentences, language='english'):
     """
     :params parser: Parser for selected document type
     :params sentences: Maximum sentences for summarizer.
@@ -285,15 +286,3 @@ def summarizer(parser, sentences, language='english'):
               for sentence in summarizer(parser.document, sentences)]
 
     return ' '.join(output)
-
-
-def alt_extract(url):
-    client = Client(os.getenv('ALCHEMYAPI', ''))
-    api = AlchemyAPI(client)
-    req = api.text('url', url)
-    if not req['status'] == 'ERROR':
-        clean = req.get('text')
-    else:
-        clean = eatiht.extract(url)
-    return '\n\n'.join(
-        [re.sub(r'\s+', ' ', i.strip()) for i in clean.split('\n')])

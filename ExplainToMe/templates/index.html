@@ -21,7 +21,7 @@ The methodology is similar to the way search engines return the most relevant we
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="form-group">
         <label for="url">Summary URL</label>
-        <input type="url" class="form-control" id="url" placeholder="Summary URL" required />
+        <input type="url" class="form-control" id="url" placeholder="Summary URL" name="url" required />
     </div>
     <div class="form-group">
         <label for="max_sent">Max Sentences</label>

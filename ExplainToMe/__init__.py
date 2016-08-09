@@ -10,6 +10,7 @@ from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 from flask_heroku import Heroku
 from flask_wtf import CsrfProtect
+from flaskext.markdown import Markdown
 
 from .views.site import site
 
@@ -28,3 +29,4 @@ bootstrap = Bootstrap(app)
 heroku = Heroku(app)
 environment = Environment(app)
 csrfprotect = CsrfProtect(app)
+markdown = Markdown(app)

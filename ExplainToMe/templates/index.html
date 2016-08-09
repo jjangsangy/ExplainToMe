@@ -5,8 +5,18 @@ ExplainToMe - Text Summarization for Humans
 {% endblock %}
 
 {% block content %}
+
 <h1>Explain To Me: <small>Text Summarization for Humans</small></h1>
-<form action="/summary" method="post">
+
+{% filter markdown %}
+ExplainToMe is a automatic text summarizer.
+To extract a concise machine generated summary composed of the most informative pieces, we utilize an algorithm called that utilizes [TextRank].
+The methodology is similar to the way search engines return the most relevant web pages from a users search query.
+
+[TextRank]: http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf
+{% endfilter %}
+<h1>Give it a try!</h1>
+<form class="form" action="/summary" method="post">
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="form-group">
@@ -18,6 +28,6 @@ ExplainToMe - Text Summarization for Humans
         <input type="number" class="form-control" id="max_sent" value=10 name="max_sent" required />
     </div>
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-success btn-block">Submit</button>
 </form>
 {% endblock %}

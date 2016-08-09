@@ -6,10 +6,25 @@ Summary Page
 
 {% block content %}
 <h1>Summary Generated</h1>
+
+{% if meta['title'] %}
+    <h1>{{meta['title']}}</h1>
+{% endif %}
+
+{% if meta['image']['url'] %}
+    <img src="{{ meta['image']['url'] }}">
+{% endif %}
+
+<dl>
+      {% for key, value in meta.iteritems() %}
+            {% if value %}
+                <dt>{{ key }}</dt>
+                <dd>{{ value }}</dd>
+            {% endif %}
+      {% endfor %}
+</dl>
 <div>
-    <h2>{{ url }}</h2>
-</div>
-<div>
+    <h2>Summary:</h2>
     <p>{{ summary }}</p>
 </div>
 {% endblock %}

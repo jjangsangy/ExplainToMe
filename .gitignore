@@ -36,23 +36,19 @@ benchmark/*.txt
 .DS_Store?
 ._*
 .Spotlight-V100
+data/
 .Trashes
 ehthumbs.db
 Thumbs.db
 Icon*
 # }}}
 
-# Distribution files/folders {{{
-docs/_build
-.env
-dist/*
-build/*
-*egg-info
-*.whl
-env/**
-# }}}
-
 # Repository specific files {{{
-texts/**
 .idea/**
+venv/
+bower_components/
+neuralpoet/static/css/lib/
+neuralpoet/static/js/lib/
+instance/**
 # }}}
+#

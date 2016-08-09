@@ -1,17 +1,25 @@
-# -*- coding: utf-8 -*-
 """
-Explain To Me
-=============
-A Text Summarization Tool for Humans
+Neural Poet
+===========
 """
+import os
 
-from .__version__ import __version__
-from .__version__ import __build__
+from flask import Flask
+from flask_assets import Environment
+from flask_bootstrap import Bootstrap
+from flask_cors import CORS
+from flask_heroku import Heroku
 
-from .models import *
-from .__main__ import *
+from .views.site import site
 
-__title__     = 'ExplainToMe'
-__author__    = 'Sang Han'
-__license__   = 'Apache Software License Version 2.0'
-__copyright__ = '(c) 2014 Sang Han'
+__title__ = 'ExplainToMe'
+__license__ = 'Apache Software License Version 2.0'
+
+app = Flask(__name__)
+
+app.register_blueprint(site)
+
+cors = CORS(app)
+bootstrap = Bootstrap(app)
+heroku = Heroku(app)
+environment = Environment(app)

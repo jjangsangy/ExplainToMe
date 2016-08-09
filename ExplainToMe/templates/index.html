@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Neural Poet
+{% endblock %}
+
+{% block content %}
+<h1>Summarize</h1>
+<form action="/summary" method="post">
+  <div class="form-group">
+    <label for="{{ form.url }}">Summary URL</label>
+    <input type="url" class="form-control" id="URL" placeholder="Summarize URL" name="summary">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+{% endblock %}

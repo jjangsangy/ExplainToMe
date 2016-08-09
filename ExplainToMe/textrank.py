@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 from __future__ import print_function
 
+import os
 import re
 
 import eatiht
@@ -19,8 +20,10 @@ from .webapi import HTTPURLEndpoints
 
 try:
     from http.cookiejar import CookieJar
+    from urllib import urlencode
 except ImportError:
     from cookielib import CookieJar
+    from urllib.parse import urlencode
 
 
 class Client:
@@ -285,7 +288,7 @@ def summarizer(parser, sentences, language='english'):
 
 
 def alt_extract(url):
-    client = Client('')
+    client = Client(os.getenv('ALCHEMYAPI', ''))
     api = AlchemyAPI(client)
     req = api.text('url', url)
     if not req['status'] == 'ERROR':

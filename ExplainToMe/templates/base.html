@@ -18,8 +18,19 @@
     {% endblock %}
   </head>
 
-  <body class="{% block bodyclass %}{% endblock %}">
+<body class="{% block bodyclass %}{% endblock %}">
+<style>
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+}
 
+</style>
+
+<div class="container">
     <header class="page-masthead" role="banner">
       <div class="wrapper">
         <nav role="navigation">
@@ -32,28 +43,33 @@
       </div>
     </header>
 
-    <div role="main">
+    <div class="row" role="main">
       {% block content %}{% endblock %}
     </div>
+</div>
 
+<div class="container" id="footer">
     <footer class="page-footer" role="contentinfo">
       {% block contentinfo %}
       <p class="copyrights">Made by <a href="https://github.com/jjangsangy">Sang Han</a> and hosted on <a href="https://github.com/jjangsangy/ExplainToMe">GitHub</a>.</p>
       {% endblock %}
     </footer>
+</div>
 
-    {% if config.DEBUG -%}
-    <!-- Connect to Livereload server -->
-    <script>
-      document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':1348/livereload.js"><\/script>')
-    </script>
-    {%- endif %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous">
-    </script>
-  </body>
+{% if config.DEBUG -%}
+<!-- Connect to Livereload server -->
+<script>
+  document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':1348/livereload.js"><\/script>')
+</script>
+{%- endif %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous">
+</script>
+</div>
+
+</body>
 
 </html>

@@ -4,20 +4,38 @@
 {% if meta['title'] %}{{meta['title']}}{% else %}Summary Page{% endif %}
 {% endblock %}
 
-{% block content %}
+{% block summary %}
 
-<section id="content">
-<article>
-<header class="page-header">
-    <h1>
-    <a href="{{url}}">
-        {% if meta['title'] %}{{meta['title']}}</h1>{% else %}Generated Summary{% endif %}
-    </a>
-    </h1>
-</header>
+<div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+    <hr class="section-heading-spacer">
+    <div class="clearfix"></div>
+    <h2 class="section-heading">
+        <a href="{{url}}">
+            {% if meta['title'] %}
+                {{ meta['title'] }}
+            {% else %}
+                Generated Summary
+            {% endif %}
+        </a>
+    </h2>
 
-<footer class="post-info">
+        {% if meta['meta']['description'] %}
+            <strong><p>{{ meta['meta']['description'] }}</p></strong>
+        {% endif %}
 
+        {% for line in summary %}
+            <p class="lead">{{ line }}<p>
+        {% endfor %}
+</div>
+<div class="col-lg-5 col-sm-pull-6  col-sm-6">
+    {% if meta['image']['url'] %}
+        <img src="{{ meta['image']['url'] }}" class="img-responsive">
+    {% endif %}
+</div>
+
+
+
+<div>
     {% if meta['authors'] %}
         <span class="label label-primary">By</span>
         <i class="fa fa-user"></i>
@@ -39,25 +57,6 @@
         <i class="fa fa-tag"></i>
             {% for tag in meta['tags'] %}<span class="label label-success">{{ tag }}</span>{% endfor %}
     {% endif %}
-</footer>
-
-{% if meta['image']['url'] %}
-    <img src="{{ meta['image']['url'] }}" class="img-rounded">
-{% endif %}
-
-{% if meta['meta']['description'] %}
-    <blockquote>
-        <p>{{ meta['meta']['description'] }}</p>
-    </blockquote>
-{% endif %}
-
-<div id="summary">
-    <h2>Summary:</h2>
-    {% for line in summary %}
-        <p>{{ line }}<p>
-    {% endfor %}
 </div>
 
-</article>
-</section>
 {% endblock %}

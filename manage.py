@@ -1,6 +1,6 @@
+from ExplainToMe import app
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_script import Manager
-from ExplainToMe import app
 
 app.debug = True
 
@@ -9,4 +9,3 @@ toolbar = DebugToolbarExtension(app)
 
 if __name__ == "__main__":
     manager.run()
-

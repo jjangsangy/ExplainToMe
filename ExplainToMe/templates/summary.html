@@ -1,28 +1,37 @@
 {% extends "base.html" %}
 
 {% block title %}
-Summary Page
+{% if meta['title'] %}{{meta['title']}}{% else %}Summary Page{% endif %}
 {% endblock %}
 
 {% block content %}
 <h1>Summary Generated</h1>
 
 {% if meta['title'] %}
-    <h1>{{meta['title']}}</h1>
+    <h1>Title: {{meta['title']}}</h1>
 {% endif %}
 
 {% if meta['image']['url'] %}
-    <img src="{{ meta['image']['url'] }}">
+    <img src="{{ meta['image']['url'] }}" class="img-rounded">
 {% endif %}
 
-<dl>
+{% if meta['tags'] %}
+    <div class="row">
+    <h2>Tags</h2>
+    {% for tag in meta['tags'] %}
+        <span class="label label-success">{{ tag }}</span>
+    {% endfor %}
+    </div>
+{% endif %}
+
+<!-- <dl>
       {% for key, value in meta.iteritems() %}
             {% if value %}
                 <dt>{{ key }}</dt>
                 <dd>{{ value }}</dd>
             {% endif %}
       {% endfor %}
-</dl>
+</dl> -->
 <div>
     <h2>Summary:</h2>
     <p>{{ summary }}</p>

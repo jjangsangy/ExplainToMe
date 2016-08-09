@@ -20,10 +20,10 @@ from .webapi import HTTPURLEndpoints
 
 try:
     from http.cookiejar import CookieJar
-    from urllib import urlencode
+    from urllib.parse import urlencode
 except ImportError:
     from cookielib import CookieJar
-    from urllib.parse import urlencode
+    from urllib import urlencode
 
 
 class Client:

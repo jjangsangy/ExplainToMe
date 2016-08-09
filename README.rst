@@ -1,5 +1,10 @@
 Explain To Me
-=============
+============
+
+|Deploy|
+
+.. |Deploy| image:: https://www.herokucdn.com/deploy/button.svg
+   :target: https://heroku.com/deploy
 
 Text Summarization for Humans
 

@@ -16,9 +16,9 @@ def index():
 
 @site.route('/summary', methods=['POST'])
 def summary():
-    max_sent = 10
     language = 'english'
-    url = request.form['summary']
+    url = request.form.get('summary', '')
+    max_sent = int(request.form.get('max_sent', 10))
     tokenizer = Tokenizer(language)
     article = alt_extract(url)
     parser = PlaintextParser.from_string(article, tokenizer)

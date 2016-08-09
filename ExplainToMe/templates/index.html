@@ -10,8 +10,13 @@ ExplainToMe - Text Summarization for Humans
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="form-group">
-    <label for="{{ form.url }}">URL</label>
-    <input type="url" class="form-control" id="URL" placeholder="Summarize URL" name="summary">
+        <label for="{{ form.url }}">URL</label>
+        <input type="url" class="form-control" id="URL" placeholder="Summarize URL" name="summary" required />
+    </div>
+    <div class="form-group">
+        <label for="{{ form.max_sent }}">Max Sentences</label>
+        <input type="number" class="form-control" id="max_sent" placeholder="10" value=10 name="max_sent" required />
+    </div>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>

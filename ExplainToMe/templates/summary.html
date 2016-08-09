@@ -18,6 +18,14 @@
 
 <footer class="post-info">
 
+    {% if meta['authors'] %}
+        <span class="label label-primary">By</span>
+        <i class="fa fa-user"></i>
+        {% for a in meta['authors'] %}
+            {{ a }},
+        {% endfor %}
+    {% endif %}
+
     {% if meta['publish_date'] %}
         <span class="label label-primary">Date</span>
         <span class="published">
@@ -25,12 +33,13 @@
             <time datetime="{{ meta['publish_date'] }}">{{ meta['publish_date'] | datetimefilter }}</time>
         </span>
     {% endif %}
+
     {% if meta['tags'] %}
         <span class="label label-info">Tags</span>
         <i class="fa fa-tag"></i>
             {% for tag in meta['tags'] %}<span class="label label-success">{{ tag }}</span>{% endfor %}
     {% endif %}
-    </footer>
+</footer>
 
 {% if meta['image']['url'] %}
     <img src="{{ meta['image']['url'] }}" class="img-rounded">

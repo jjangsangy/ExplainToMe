@@ -1,12 +1,8 @@
 # -*- coding: utf8 -*-
 from __future__ import print_function
 
-import os
-import re
-
 import requests
 from breadability.readable import Article
-from goose import Goose
 from requests import Request, Session
 from requests.adapters import HTTPAdapter
 from sumy.models.dom import ObjectDocumentModel, Paragraph, Sentence

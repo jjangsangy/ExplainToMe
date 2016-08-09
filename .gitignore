@@ -44,7 +44,7 @@ Icon*
 # }}}
 
 # Repository specific files {{{
-.idea/**
+.idea/
 venv/
 bower_components/
 neuralpoet/static/css/lib/

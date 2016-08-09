@@ -12,4 +12,5 @@ Flask-Uploads==0.2.1
 Flask-Assets==0.11
 Flask-WTF==0.12
 Flask-Markdown==0.3
+goose-extractor==1.0.25
 sumy

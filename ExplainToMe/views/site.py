@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request
 from sumy.nlp.tokenizers import Tokenizer
 
 from ..forms import LinkForm
-from ..textrank import HtmlParser, run_summarizer
+from ..textrank import get_parser, run_summarizer
 
 site = Blueprint('site', __name__)
 
@@ -19,6 +19,6 @@ def summary():
     url = request.form.get('url', '')
     max_sent = int(request.form.get('max_sent', 10))
     tokenizer = Tokenizer(language)
-    parser = HtmlParser.from_url(url, tokenizer)
+    parser = get_parser(url, tokenizer)
     summary = run_summarizer(parser, max_sent, language).decode('utf-8')
     return render_template('summary.html', url=url, summary=summary)

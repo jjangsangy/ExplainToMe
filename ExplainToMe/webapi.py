@@ -1,7 +1,112 @@
 from collections import defaultdict
 
+import requests
+
+from six.moves import urllib
+
+try:
+    from http.cookiejar import CookieJar
+    from urllib.parse import urlencode
+except ImportError:
+    from cookielib import CookieJar
+    from urllib import urlencode
+
+
+class AlchemyAPI:
+
+    def __init__(self, client, base='http://access.alchemyapi.com/calls'):
+        self.base = base
+        self.client = client
+        self.session = requests.session()
+        self.endpoint = HTTPURLEndpoints.build_endpoints()
+
+    def text(self, flavor, data, options={}):
+        """
+        Extracts the cleaned text (removes ads, navigation, etc.)
+            for text, a URL or HTML.
+        For an overview, please refer to:
+            http://www.alchemyapi.com/products/features/text-extraction/
+        For the docs, please refer to:
+            http://www.alchemyapi.com/api/text-extraction/
+
+        Input:
+        ======
+        :param flavor: str
+            Which version of the call ['text', 'url', 'html']
+        :param data:
+            The data to analyze, either the text, the url or html code.
+        :param options:
+            various parameters that can be used to adjust how the API works,
+
+        Available Options:
+        ==================
+        :option useMetadata: utilize meta description data
+                          0: disabled
+                          1: enabled (default)
+        :option extractLinks: include links
+                          0: disabled (default)
+                          1: enabled
+
+        Output:
+        =======
+        :return response: JSON
+            The response, already converted from JSON to a Python object
+        """
+        # Make sure this request supports this flavor
+        if flavor not in self.endpoint['text']:
+            return {'status': 'ERROR',
+                    'statusInfo':
+                    'clean text extraction for ' + flavor + ' not available'}
+
+        # add the data to the options and analyze
+        options[flavor] = data
+
+        return self.connect(self.endpoint['text'][flavor], options)
+
+    def connect(self, endpoint, params, post_data=bytearray()):
+        """
+        HTTP Request wrapper that is called by the endpoint functions.
+        This function is not intended to be called through an
+        external interface.
+        It makes the call, then converts the
+        returned JSON string into a Python object.
+
+        INPUT:
+        url -> the full URI encoded url
+
+        OUTPUT:
+        The response, already converted from JSON to a Python object.
+        """
+
+        # Add the API Key and set the output mode to JSON
+        params['apikey'] = self.client.key
+        params['outputMode'] = 'json'
+        # Insert the base url
+
+        post_url = ""
+        try:
+            post_url = self.base + endpoint + \
+                '?' + urllib.parse.urlencode(params).encode('utf-8')
+        except TypeError:
+            post_url = self.base + endpoint + '?' + urlencode(params)
+
+        results = ""
+        try:
+            results = self.session.post(url=post_url, data=post_data)
+        except Exception as e:
+            print(e)
+            return {'status': 'ERROR', 'statusInfo': 'network-error'}
+        try:
+            return results.json()
+        except Exception as e:
+            if results != "":
+                print(results)
+            print(e)
+            return {'status': 'ERROR', 'statusInfo': 'parse-error'}
+
 
 class HTTPURLEndpoints(defaultdict):
+
     def __getattr__(self, key):
         try:
             return self.__dict__[key]
@@ -91,3 +196,24 @@ class HTTPURLEndpoints(defaultdict):
         webapi.taxonomy.text = '/text/TextGetRankedTaxonomy'
 
         return webapi.serialize()
+
+
+class Client:
+
+    def __init__(self, key=None):
+        self.__key = key
+
+    def __repr__(self):
+        classname = self.__class__.__name__
+        return '%s(key=%r)' % (classname, 'KEY' if self.key else None)
+
+    def is_valid(self):
+        if not self.key:
+            return False
+        assert isinstance(self.key, str)
+        assert len(self.key) == 40
+        return True
+
+    @property
+    def key(self):
+        return self.__key

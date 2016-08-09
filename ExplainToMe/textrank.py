@@ -3,138 +3,17 @@ from __future__ import print_function
 
 import requests
 from breadability.readable import Article
+from goose import Goose
 from requests import Request, Session
 from requests.adapters import HTTPAdapter
 from sumy.models.dom import ObjectDocumentModel, Paragraph, Sentence
 from sumy.nlp.stemmers import Stemmer
 from sumy.parsers.parser import DocumentParser
+from sumy.parsers.plaintext import PlaintextParser
 from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.utils import cached_property, get_stop_words
 
-from six.moves import urllib
-
-from .webapi import HTTPURLEndpoints
-
-try:
-    from http.cookiejar import CookieJar
-    from urllib.parse import urlencode
-except ImportError:
-    from cookielib import CookieJar
-    from urllib import urlencode
-
-
-class Client:
-
-    def __init__(self, key=None):
-        self.__key = key
-
-    def __repr__(self):
-        classname = self.__class__.__name__
-        return '%s(key=%r)' % (classname, 'KEY' if self.key else None)
-
-    def is_valid(self):
-        if not self.key:
-            return False
-        assert isinstance(self.key, str)
-        assert len(self.key) == 40
-        return True
-
-    @property
-    def key(self):
-        return self.__key
-
-
-class AlchemyAPI:
-
-    def __init__(self, client, base='http://access.alchemyapi.com/calls'):
-        self.base = base
-        self.client = client
-        self.session = requests.session()
-        self.endpoint = HTTPURLEndpoints.build_endpoints()
-
-    def text(self, flavor, data, options={}):
-        """
-        Extracts the cleaned text (removes ads, navigation, etc.)
-            for text, a URL or HTML.
-        For an overview, please refer to:
-            http://www.alchemyapi.com/products/features/text-extraction/
-        For the docs, please refer to:
-            http://www.alchemyapi.com/api/text-extraction/
-
-        Input:
-        ======
-        :param flavor: str
-            Which version of the call ['text', 'url', 'html']
-        :param data:
-            The data to analyze, either the text, the url or html code.
-        :param options:
-            various parameters that can be used to adjust how the API works,
-
-        Available Options:
-        ==================
-        :option useMetadata: utilize meta description data
-                          0: disabled
-                          1: enabled (default)
-        :option extractLinks: include links
-                          0: disabled (default)
-                          1: enabled
-
-        Output:
-        =======
-        :return response: JSON
-            The response, already converted from JSON to a Python object
-        """
-        # Make sure this request supports this flavor
-        if flavor not in self.endpoint['text']:
-            return {'status': 'ERROR',
-                    'statusInfo':
-                    'clean text extraction for ' + flavor + ' not available'}
-
-        # add the data to the options and analyze
-        options[flavor] = data
-
-        return self.connect(self.endpoint['text'][flavor], options)
-
-    def connect(self, endpoint, params, post_data=bytearray()):
-        """
-        HTTP Request wrapper that is called by the endpoint functions.
-        This function is not intended to be called through an
-        external interface.
-        It makes the call, then converts the
-        returned JSON string into a Python object.
-
-        INPUT:
-        url -> the full URI encoded url
-
-        OUTPUT:
-        The response, already converted from JSON to a Python object.
-        """
-
-        # Add the API Key and set the output mode to JSON
-        params['apikey'] = self.client.key
-        params['outputMode'] = 'json'
-        # Insert the base url
-
-        post_url = ""
-        try:
-            post_url = self.base + endpoint + \
-                '?' + urllib.parse.urlencode(params).encode('utf-8')
-        except TypeError:
-            post_url = self.base + endpoint + '?' + urlencode(params)
-
-        results = ""
-        try:
-            results = self.session.post(url=post_url, data=post_data)
-        except Exception as e:
-            print(e)
-            return {'status': 'ERROR', 'statusInfo': 'network-error'}
-        try:
-            return results.json()
-        except Exception as e:
-            if results != "":
-                print(results)
-            print(e)
-            return {'status': 'ERROR', 'statusInfo': 'parse-error'}
+from six.moves.http_cookiejar import CookieJar
 
 
 class HtmlParser(DocumentParser):
@@ -282,3 +161,13 @@ def run_summarizer(parser, sentences, language='english'):
               for sentence in summarizer(parser.document, sentences)]
 
     return ' '.join(output)
+
+
+def get_parser(url, tokenizer):
+    g = Goose().extract(url=url)
+    html = HtmlParser.from_url(url, tokenizer)
+    return (
+        html
+        if len(set(g.cleaned_text.split())) < len(html.document.words)
+        else PlaintextParser(g.cleaned_text, tokenizer)
+    )

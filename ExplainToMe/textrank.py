@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import requests
+import six
 from breadability.readable import Article
 from goose import Goose
 from requests import Request, Session
@@ -14,6 +15,9 @@ from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.utils import cached_property, get_stop_words
 
 from six.moves.http_cookiejar import CookieJar
+
+if six.PY2:
+    str = unicode
 
 
 class HtmlParser(DocumentParser):
@@ -152,15 +156,11 @@ def run_summarizer(parser, sentences, language='english'):
 
     :returns summary: Summarized page.
     """
-    stemmer = Stemmer(language)
-    summarizer = Summarizer(stemmer)
 
+    summarizer = Summarizer(Stemmer(language))
     summarizer.stop_words = get_stop_words(language)
-
-    output = [str(sentence)
-              for sentence in summarizer(parser.document, sentences)]
-
-    return ' '.join(output)
+    return [str(sentence)
+            for sentence in summarizer(parser.document, sentences)]
 
 
 def get_parser(url, tokenizer):

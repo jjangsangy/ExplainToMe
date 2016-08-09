@@ -20,5 +20,5 @@ def summary():
     max_sent = int(request.form.get('max_sent', 10))
     tokenizer = Tokenizer(language)
     parser, meta = get_parser(url, tokenizer)
-    summary = run_summarizer(parser, max_sent, language).decode('utf-8')
+    summary = run_summarizer(parser, max_sent, language)
     return render_template('summary.html', url=url, summary=summary, meta=meta)

@@ -5,35 +5,50 @@
 {% endblock %}
 
 {% block content %}
-<h1>Summary Generated</h1>
 
-{% if meta['title'] %}
-    <h1>Title: {{meta['title']}}</h1>
-{% endif %}
+<section id="content">
+<article>
+<header class="page-header">
+    <h1>
+    <a href="{{url}}">
+        {% if meta['title'] %}{{meta['title']}}</h1>{% else %}Generated Summary{% endif %}
+    </a>
+    </h1>
+</header>
+
+<footer class="post-info">
+
+    {% if meta['publish_date'] %}
+        <span class="label label-primary">Date</span>
+        <span class="published">
+            <i class="fa fa-calendar"></i>
+            <time datetime="{{ meta['publish_date'] }}">{{ meta['publish_date'] | datetimefilter }}</time>
+        </span>
+    {% endif %}
+    {% if meta['tags'] %}
+        <span class="label label-info">Tags</span>
+        <i class="fa fa-tag"></i>
+            {% for tag in meta['tags'] %}<span class="label label-success">{{ tag }}</span>{% endfor %}
+    {% endif %}
+    </footer>
 
 {% if meta['image']['url'] %}
     <img src="{{ meta['image']['url'] }}" class="img-rounded">
 {% endif %}
 
-{% if meta['tags'] %}
-    <div class="row">
-    <h2>Tags</h2>
-    {% for tag in meta['tags'] %}
-        <span class="label label-success">{{ tag }}</span>
-    {% endfor %}
-    </div>
+{% if meta['meta']['description'] %}
+    <blockquote>
+        <p>{{ meta['meta']['description'] }}</p>
+    </blockquote>
 {% endif %}
 
-<!-- <dl>
-      {% for key, value in meta.iteritems() %}
-            {% if value %}
-                <dt>{{ key }}</dt>
-                <dd>{{ value }}</dd>
-            {% endif %}
-      {% endfor %}
-</dl> -->
-<div>
+<div id="summary">
     <h2>Summary:</h2>
-    <p>{{ summary }}</p>
+    {% for line in summary %}
+        <p>{{ line }}<p>
+    {% endfor %}
 </div>
+
+</article>
+</section>
 {% endblock %}

@@ -8,7 +8,8 @@ ExplainToMe - Text Summarization for Humans
 <h1>Explain To Me: <small>Text Summarization for Humans</small></h1>
 <form action="/summary" method="post">
     {{ form.csrf_token }}
-  <div class="form-group">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <div class="form-group">
     <label for="{{ form.url }}">URL</label>
     <input type="url" class="form-control" id="URL" placeholder="Summarize URL" name="summary">
   </div>

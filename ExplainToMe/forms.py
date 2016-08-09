@@ -4,3 +4,4 @@ from wtforms.validators import url
 
 class LinkForm():
     url = URLField(validators=[url()])
+    

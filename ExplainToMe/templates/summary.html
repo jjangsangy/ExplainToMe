@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
+{% block title %}
+Summary Page
+{% endblock %}
+
 {% block content %}
-<h1>Summary Generated For: <small>{{ url }}</small></h1>
+<h1>Summary Generated</h1>
+<div>
+<h2>{{ url }}</h2>
+</div>
 <div>
 <p>{{ summary }}</p>
 </div>

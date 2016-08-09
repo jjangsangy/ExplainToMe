@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-ExplainToMe
+ExplainToMe - Text Summarization for Humans
 {% endblock %}
 
 {% block content %}
-<h1>Summarize</h1>
+<h1>Explain To Me: <small>Text Summarization for Humans</small></h1>
 <form action="/summary" method="post">
   <div class="form-group">
-    <label for="{{ form.url }}">Summary URL</label>
+    <label for="{{ form.url }}">URL</label>
     <input type="url" class="form-control" id="URL" placeholder="Summarize URL" name="summary">
   </div>
   <button type="submit" class="btn btn-default">Submit</button>

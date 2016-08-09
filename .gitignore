@@ -47,8 +47,8 @@ Icon*
 .idea/
 venv/
 bower_components/
-neuralpoet/static/css/lib/
-neuralpoet/static/js/lib/
+ExplainToMe/static/css/lib/
+ExplainToMe/static/js/lib/
 instance/**
 # }}}
 #

@@ -1,11 +1,13 @@
+{% import "bootstrap/fixes.html" as fixes %}
+
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width" />
     <meta name="author" content="Sang Han" />
+    <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
     <title>{% block title %}{% endblock %}</title>
     {% block css %}
     <link
@@ -15,21 +17,12 @@
         crossorigin="anonymous" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
     <link href="https://bootswatch.com/superhero/bootstrap.min.css" rel="stylesheet"  />
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel=stylesheet />
     {% endblock %}
+    {{ fixes.ie8() }}
   </head>
 
-<body class="{% block bodyclass %}{% endblock %}">
-<style>
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-}
-
-</style>
-
+<body>
 <div class="container">
     <header class="page-masthead" role="banner">
       <div class="wrapper">
@@ -56,19 +49,13 @@ footer {
     </footer>
 </div>
 
-{% if config.DEBUG -%}
-<!-- Connect to Livereload server -->
-<script>
-  document.write('<script src="//' + (location.host || 'localhost').split(':')[0] + ':1348/livereload.js"><\/script>')
-</script>
-{%- endif %}
+<!-- Javascript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script
     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous">
 </script>
-</div>
 
 </body>
 

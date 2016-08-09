@@ -4,13 +4,6 @@ import requests
 
 from six.moves import urllib
 
-try:
-    from http.cookiejar import CookieJar
-    from urllib.parse import urlencode
-except ImportError:
-    from cookielib import CookieJar
-    from urllib import urlencode
-
 
 class AlchemyAPI:
 
@@ -88,7 +81,8 @@ class AlchemyAPI:
             post_url = self.base + endpoint + \
                 '?' + urllib.parse.urlencode(params).encode('utf-8')
         except TypeError:
-            post_url = self.base + endpoint + '?' + urlencode(params)
+            post_url = self.base + endpoint + \
+                '?' + urllib.parse.urlencode(params)
 
         results = ""
         try:

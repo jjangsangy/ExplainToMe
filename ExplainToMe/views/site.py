@@ -26,7 +26,7 @@ def summary():
     parser, meta = get_parser(url, tokenizer)
     summary = run_summarizer(parser, max_sent, language)
     session.update(dict(summary=summary, url=url, meta=meta))
-    return redirect(url_for('site.index'))
+    return redirect(url_for('site.index', _anchor='summary'))
 
 
 @site.route('/', methods=['GET', 'POST'])

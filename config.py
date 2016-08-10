@@ -8,7 +8,6 @@ class BaseConfig(object):
     CSRF_ENABLED = True
     ASSETS_DEBUG = True
 
-
 class ProductionConfig(BaseConfig):
     DEBUG = False
     ASSETS_DEBUG = False

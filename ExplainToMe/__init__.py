@@ -6,7 +6,6 @@ import os
 
 from dateutil.parser import parser
 from flask import Flask
-from flask_assets import Environment
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 from flask_heroku import Heroku
@@ -22,8 +21,10 @@ app = Flask(__name__)
 
 app.register_blueprint(site)
 
-app.config['SECRET_KEY'] = os.environ.get(
-    'SECRET_KEY', 'w+sJMWsCKSCyfZ0eUGWaYALzIc78zFVs')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY',
+                                     'v8iqZjndP7dtZuqnkttGgqlszSEDWnI8')
+app.config.from_object(os.getenv('APP_SETTINGS',
+                                 'config.DevelopmentConfig'))
 
 
 @app.template_filter()
@@ -37,6 +38,5 @@ app.jinja_env.filters['datetimefilter'] = datetimefilter
 cors = CORS(app)
 bootstrap = Bootstrap(app)
 heroku = Heroku(app)
-environment = Environment(app)
 csrfprotect = CsrfProtect(app)
 markdown = Markdown(app)

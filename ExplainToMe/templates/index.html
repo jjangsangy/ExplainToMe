@@ -2,31 +2,34 @@
 
 {% block title %}
 {% if url %}
-{% if meta['title'] %}{{meta['title']}}{% else %}ExplainToMe - Text Summarization for Humans{% endif %}
+    {% if meta['title'] %}
+        {{ meta['title'] }}
+    {% else %}
+        ExplainToMe - Text Summarization for Humans
+    {% endif %}
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="form">
     <form class="form-inline" action="/summary" method="post">
-        <div class="form-group">
-            {{ form.csrf_token }}
-            {{ form.url() }}
-        </div>
-        <div class="form-group" >
-            {{ form.max_sent() }}
-        </div>
+        <div class="form-group"> {{ form.csrf_token }} {{ form.url() }} </div>
+        <div class="form-group" > {{ form.max_sent() }} </div>
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
+</div>
 {% endblock %}
 
 {% block summary %}
-
 {% if url %}
+
+<!-- Right Block -->
+
 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
     <hr class="section-heading-spacer">
     <div class="clearfix"></div>
     <h2 class="section-heading">
+        <!-- Heading -->
         <a href="{{url}}">
             {% if meta['title'] %}
                 {{ meta['title'] }}
@@ -36,59 +39,71 @@
         </a>
     </h2>
 
+    <!-- Description -->
+    <h2>Description</h2>
     {% if meta['meta']['description'] %}
         <strong><p>{{ meta['meta']['description'] }}</p></strong>
     {% endif %}
 
+    <!-- Summary Content -->
+    <h2>{{ max_sent }} Sentence Summary</h2>
     {% for line in summary %}
         <p class="lead">{{ line }}<p>
     {% endfor %}
-
 </div>
 
+<!-- Left Block -->
 <div class="col-lg-5 col-sm-pull-6 col-sm-6">
+    <hr class="section-heading-spacer">
+    <div class="clearfix"></div>
+    <!-- Article Image -->
+    <h2>Article Image</h2>
+    {% if meta['image']['url'] %}
+        <img src="{{ meta['image']['url'] }}" class="img-responsive">
+    {% endif %}
 
+    <!-- Authors -->
+    <div class="row">
+    {% if meta['authors'] %}
+        <span class="label label-primary">By</span>
+        <i class="fa fa-user"></i>
+        {% for a in meta['authors'] %}
+            {{ a }},
+        {% endfor %}
+    {% endif %}
+    </div>
 
-{% if meta['opengraph'] %}
-    <ul>
-    {% for key, value in meta['opengraph'].iteritems() %}
-        <li><strong>{{ key }}</strong>: {{ value }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
+    <!-- Published Date -->
+    <div class="row">
+    {% if meta['publish_date'] %}
+        <span class="label label-primary">Date</span>
+        <span class="published">
+            <i class="fa fa-calendar"></i>
+            <time datetime="{{ meta['publish_date'] }}">{{ meta['publish_date'] | datetimefilter }}</time>
+        </span>
+    {% endif %}
+    </div>
 
-<div class="row">
-{% if meta['authors'] %}
-    <span class="label label-primary">By</span>
-    <i class="fa fa-user"></i>
-    {% for a in meta['authors'] %}
-        {{ a }},
-    {% endfor %}
-{% endif %}
+    <!-- Tags -->
+    <div class="row">
+    {% if meta['tags'] %}
+        <span class="label label-info">Tags</span>
+        <i class="fa fa-tag"></i>
+            {% for tag in meta['tags'] %}<span class="label label-success">{{ tag }}</span>{% endfor %}
+    {% endif %}
+    </div>
+
+    <!-- OpenGraph -->
+    <div class="row">
+    {% if meta['opengraph'] %}
+    <h2>Metadata</h2>
+        <ul>
+            {% for key, value in meta['opengraph'].iteritems() %}
+                <li><strong>{{ key }}</strong>: {{ value }}</li>
+            {% endfor %}
+        </ul>
 </div>
-
-<div class="row">
-{% if meta['publish_date'] %}
-    <span class="label label-primary">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i>
-        <time datetime="{{ meta['publish_date'] }}">{{ meta['publish_date'] | datetimefilter }}</time>
-    </span>
 {% endif %}
-</div>
-
-<div class="row">
-{% if meta['tags'] %}
-    <span class="label label-info">Tags</span>
-    <i class="fa fa-tag"></i>
-        {% for tag in meta['tags'] %}<span class="label label-success">{{ tag }}</span>{% endfor %}
-{% endif %}
-</div>
-
-{% if meta['image']['url'] %}
-    <img src="{{ meta['image']['url'] }}" class="img-responsive">
-{% endif %}
-
 </div>
 {% endif %}
 {% endblock %}

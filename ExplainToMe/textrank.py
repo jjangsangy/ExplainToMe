@@ -7,6 +7,7 @@ from breadability.readable import Article
 from goose import Goose
 from requests import Request, Session
 from requests.adapters import HTTPAdapter
+from requests.cookies import RequestsCookieJar
 from sumy.models.dom import ObjectDocumentModel, Paragraph, Sentence
 from sumy.nlp.stemmers import Stemmer
 from sumy.parsers.parser import DocumentParser
@@ -14,7 +15,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.utils import cached_property, get_stop_words
 
-from six.moves.http_cookiejar import CookieJar
+from cachecontrol import CacheControl
 
 if six.PY2:
     str = unicode
@@ -46,25 +47,16 @@ class HtmlParser(DocumentParser):
                 'AppleWebKit/537.11 (KHTML, like Gecko)',
                 'Chrome/23.0.1271.64 Safari/537.11'
             ]),
-            'Accept': ','.join([
-                'text/html', 'application/xhtml+xml', 'application/xml;q=0.9',
-                '*/*;q=0.8'
-            ]),
-            'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-            'Accept-Encoding': 'none',
-            'Accept-Language': 'en-US,en;q=0.8',
-            'Connection': 'keep-alive'
         }
-        session = Session()
+
+        session = CacheControl(Session())
 
         session.mount('http://', HTTPAdapter(max_retries=2))
         session.mount('https://', HTTPAdapter(max_retries=2))
-
-        cookies = CookieJar()
         request = Request(method='GET',
                           url=url,
                           headers=headers,
-                          cookies=cookies)
+                          cookies=RequestsCookieJar())
         prepare = session.prepare_request(request)
         response = session.send(prepare, verify=True)
 

@@ -164,7 +164,11 @@ def run_summarizer(parser, sentences, language='english'):
 
 
 def get_parser(url, tokenizer):
-    g = Goose().extract(url=url)
+    article = Goose()
+    try:
+        g = article.extract(url=url)
+    except IndexError:
+        g = article.extract(raw_html=requests.get(url).text)
     meta = {
         k: v for (k, v) in g.infos.items()
         if k not in ('cleaned_text', 'links', 'tweets', 'movies')

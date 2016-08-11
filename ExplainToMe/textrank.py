@@ -68,9 +68,6 @@ class HtmlParser(DocumentParser):
         prepare = session.prepare_request(request)
         response = session.send(prepare, verify=True)
 
-        if response.status_code != requests.codes.ok:
-            response.raise_for_status()
-
         return cls(response.text, tokenizer, url)
 
     def __init__(self, html_content, tokenizer, url=None):

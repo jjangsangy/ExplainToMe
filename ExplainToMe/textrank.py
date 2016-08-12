@@ -4,6 +4,7 @@ from __future__ import print_function
 import requests
 import six
 from breadability.readable import Article
+from cachecontrol import CacheControl
 from goose import Goose
 from requests import Request, Session
 from requests.adapters import HTTPAdapter
@@ -15,23 +16,22 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.utils import cached_property, get_stop_words
 
-from cachecontrol import CacheControl
-
 if six.PY2:
     str = unicode
 
 
 class HtmlParser(DocumentParser):
-    """Parser of text from HTML format into DOM."""
-
-    SIGNIFICANT_TAGS = ('h1', 'h2', 'h3', 'b'
+    """
+    Parser of text from HTML format into DOM.
+    """
+    SIGNIFICANT_TAGS = ('h1', 'h2', 'h3', 'b',
                         'strong', 'big', 'dfn', 'em', 'p')
 
     @classmethod
     def from_string(cls,
                     string,
                     url,
-                    tokenizer, ):
+                    tokenizer):
         return cls(string, tokenizer, url)
 
     @classmethod
@@ -45,12 +45,10 @@ class HtmlParser(DocumentParser):
             'User-Agent': ' '.join([
                 'Mozilla/5.0 (X11; Linux x86_64)',
                 'AppleWebKit/537.11 (KHTML, like Gecko)',
-                'Chrome/23.0.1271.64 Safari/537.11'
+                'Chrome/23.0.1271.64 Safari/537.11',
             ]),
         }
-
         session = CacheControl(Session())
-
         session.mount('http://', HTTPAdapter(max_retries=2))
         session.mount('https://', HTTPAdapter(max_retries=2))
         request = Request(method='GET',
@@ -70,23 +68,18 @@ class HtmlParser(DocumentParser):
     def significant_words(self):
         words = []
         for paragraph in self._article.main_text:
-
-            for (text, annotations) in paragraph:
+            for text, annotations in paragraph:
                 if not self._contains_any(annotations, *self.SIGNIFICANT_TAGS):
                     continue
                 words.extend(self.tokenize_words(text))
-
-        if words:
-            return tuple(words)
-        else:
-            return self.SIGNIFICANT_WORDS
+        return tuple(words) if words else self.SIGNIFICANT_WORDS
 
     @cached_property
     def stigma_words(self):
         words = []
         for paragraph in self._article.main_text:
             for (text, annotations) in paragraph:
-                if self._contains_any(annotations, 'a', 'strike', 's'):
+                if self._contains_any(annotations, 'a', 'strike', 's', 'span'):
                     words.extend(self.tokenize_words(text))
 
         if words:

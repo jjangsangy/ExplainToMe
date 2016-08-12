@@ -4,11 +4,10 @@ Main
 """
 
 import click
-
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.parsers.plaintext import PlaintextParser
 
-from .textrank import alt_extract, summarizer
+from .textrank import alt_extract, get_summarizer
 
 
 @click.command()
@@ -19,7 +18,7 @@ def main(url, max_sent, language='english'):
     tokenizer = Tokenizer(language)
     article = alt_extract(url)
     parser = PlaintextParser.from_string(article, tokenizer)
-    return click.echo(summarizer(parser, max_sent, language))
+    return click.echo(get_summarizer(parser, max_sent, language))
 
 
 if __name__ == '__main__':

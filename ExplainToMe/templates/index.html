@@ -13,9 +13,16 @@
 {% block content %}
 <div class="form">
     <form class="form-inline" action="/summary" method="post">
-        <div class="form-group"> {{ form.csrf_token }} {{ form.url() }} </div>
-        <div class="form-group" > {{ form.max_sent() }} </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+        <div class="form-group">
+            {{ form.url() }}
+            {{ form.csrf_token }}
+        </div>
+        <div class="form-group">
+            {{ form.max_sent() }}
+        </div>
+            <button type="submit" class="btn btn-success">
+                Summarize
+            </button>
     </form>
 </div>
 {% endblock %}

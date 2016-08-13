@@ -1,16 +1,13 @@
 ExplainToMe
 ===========
 
+|travis| |licence|
+
 Text Summarization for Humans
 
 .. image:: static/front.png
 
-
 |Deploy|
-
-.. |Deploy| image:: https://www.herokucdn.com/deploy/button.svg
-   :target: https://heroku.com/deploy
-
 
 
 What is it?
@@ -26,4 +23,11 @@ Things to look forward to:
 --------------------------
 -  Summaries of documents in other languages than English!
 
+.. |Deploy| image:: https://www.herokucdn.com/deploy/button.svg
+   :target: https://heroku.com/deploy
 
+.. |travis| image:: https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master
+   :target: https://travis-ci.org/jjangsangy/ExplainToMe
+
+.. |licence| image:: https://img.shields.io/pypi/l/coverage.svg
+   :target: https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE

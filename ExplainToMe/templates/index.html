@@ -12,20 +12,10 @@
 
 {% block content %}
 <div class="form">
-    <form role="form" class="form-inline" action="/summary" method="post">
-        {{ form.csrf_token }}
-        <div class="input-group col-xs-4">
-            {{ form.url() }}
-        </div>
-        <div class="input-group col-xs-1">
-            {{ form.max_sent() }}
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-success">
-                <span class="glyphicon glyphicon-search"></span>
-                <span class="sr-only">Search</span>
-                </button>
-            </span>
-        </div>
+    <form class="form-inline" action="/summary" method="post">
+        <div class="form-group"> {{ form.csrf_token }} {{ form.url() }} </div>
+        <div class="form-group" > {{ form.max_sent() }} </div>
+      <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>
 {% endblock %}

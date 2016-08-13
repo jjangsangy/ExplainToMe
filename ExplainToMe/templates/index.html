@@ -11,20 +11,19 @@
 {% endblock %}
 
 {% block content %}
-<div class="form">
-    <form class="form-inline" action="/summary" method="post">
+    <form role="form" class="form-inline" action="/summary" method="post">
+        {{ form.csrf_token }}
         <div class="form-group">
             {{ form.url() }}
-            {{ form.csrf_token }}
         </div>
         <div class="form-group">
             {{ form.max_sent() }}
         </div>
-            <button type="submit" class="btn btn-success">
-                Summarize
-            </button>
+        <button type="submit" class="btn btn-success">
+        <span class="glyphicon glyphicon-search"></span>
+        Submit
+        </button>
     </form>
-</div>
 {% endblock %}
 
 {% block summary %}

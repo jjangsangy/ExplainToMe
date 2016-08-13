@@ -25,24 +25,26 @@
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
 <div class="container topnav">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand topnav" href="{{ url_for('site.index') }}">ExplainToMe</a>
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#run">Run</a></li>
-            <li><a href="#summary">Summary</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-    </div> <!-- /.navbar-collapse -->
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand topnav" href="{{ url_for('site.index') }}">
+    <i class="fa fa-connectdevelop" aria-hidden="true"></i>
+        Home
+    </a>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#run">Run</a></li>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</div> <!-- /.navbar-collapse -->
 </div> <!-- /.container -->
 </nav>
 
@@ -66,7 +68,7 @@
 </div>
 
 <a name="summary"></a>
-<div class="content-section-b">
+<div class="content-section-a">
     <div class="container">
         <div class="row">
             {% block summary %}

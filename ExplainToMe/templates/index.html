@@ -12,10 +12,20 @@
 
 {% block content %}
 <div class="form">
-    <form class="form-inline" action="/summary" method="post">
-        <div class="form-group"> {{ form.csrf_token }} {{ form.url() }} </div>
-        <div class="form-group" > {{ form.max_sent() }} </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+    <form role="form" class="form-inline" action="/summary" method="post">
+        {{ form.csrf_token }}
+        <div class="input-group col-xs-4">
+            {{ form.url() }}
+        </div>
+        <div class="input-group col-xs-1">
+            {{ form.max_sent() }}
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-search"></span>
+                <span class="sr-only">Search</span>
+                </button>
+            </span>
+        </div>
     </form>
 </div>
 {% endblock %}
@@ -24,44 +34,44 @@
 {% if url %}
 
 <!-- Right Block -->
-
 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
     <hr class="section-heading-spacer">
     <div class="clearfix"></div>
-    <h2 class="section-heading">
-        <!-- Heading -->
-        <a href="{{url}}">
-            {% if meta['title'] %}
-                {{ meta['title'] }}
-            {% else %}
-                Generated Summary
-            {% endif %}
-        </a>
-    </h2>
+    <h3 class="section-heading">
+
+    <!-- Heading -->
+    <a href="{{ url }}">
+        {% if meta['title'] %} {{ meta['title'] }} {% else %} Summary {% endif %}
+    </a>
+    </h3>
 
     <!-- Description -->
-    <h2>Description</h2>
+    <h3>Description</h3>
     {% if meta['meta']['description'] %}
         <strong><p>{{ meta['meta']['description'] }}</p></strong>
     {% endif %}
 
     <!-- Summary Content -->
-    <h2>{{ max_sent }} Sentence Summary</h2>
+    <h3>{{ max_sent }} Sentence Summary</h3>
     {% for line in summary %}
         <p class="lead">{{ line }}<p>
     {% endfor %}
+
 </div>
 
 <!-- Left Block -->
 <div class="col-lg-5 col-sm-pull-6 col-sm-6">
     <hr class="section-heading-spacer">
     <div class="clearfix"></div>
+
     <!-- Article Image -->
-    <h2>Article Image</h2>
     {% if meta['image']['url'] %}
+        <h3>Article Image</h3>
         <img src="{{ meta['image']['url'] }}" class="img-responsive">
     {% endif %}
 
+
+    <h3>Breadcrumbs</h3>
     <!-- Authors -->
     <div class="row">
     {% if meta['authors'] %}
@@ -96,14 +106,18 @@
     <!-- OpenGraph -->
     <div class="row">
     {% if meta['opengraph'] %}
-    <h2>Metadata</h2>
-        <ul>
+    <h3>Metadata</h3>
+        <ul class="list-group">
             {% for key, value in meta['opengraph'].iteritems() %}
-                <li><strong>{{ key }}</strong>: {{ value }}</li>
+                <li class="list-group-item">
+                    <h5 class="list-group-item-heading">{{ key }}</h5>
+                    <p class="list-group-item-text">{{ value }}</p>
+                </li>
             {% endfor %}
         </ul>
-</div>
+    </div>
 {% endif %}
-</div>
+</div> <!-- /Left Block -->
+
 {% endif %}
 {% endblock %}

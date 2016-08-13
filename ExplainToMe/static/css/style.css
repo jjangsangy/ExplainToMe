@@ -11,8 +11,12 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
+}
+
+body {
+    padding-bottom: 70px;
 }
 
 .topnav {

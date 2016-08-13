@@ -24,14 +24,13 @@ class HtmlParser(DocumentParser):
     """
     Parser of text from HTML format into DOM.
     """
-    SIGNIFICANT_TAGS = ('h1', 'h2', 'h3', 'b',
-                        'strong', 'big', 'dfn', 'em', 'p')
+    SIGNIFICANT_TAGS = (
+        'h1', 'h2', 'h3', 'b', 'i' 'blockquote',
+        'strong', 'big', 'dfn', 'em', 'p'
+    )
 
     @classmethod
-    def from_string(cls,
-                    string,
-                    url,
-                    tokenizer):
+    def from_string(cls, string, url, tokenizer):
         return cls(string, tokenizer, url)
 
     @classmethod
@@ -40,24 +39,17 @@ class HtmlParser(DocumentParser):
             return cls(file.read(), tokenizer, url)
 
     @classmethod
-    def from_url(cls, url, tokenizer):
-        headers = {
-            'User-Agent': ' '.join([
-                'Mozilla/5.0 (X11; Linux x86_64)',
-                'AppleWebKit/537.11 (KHTML, like Gecko)',
-                'Chrome/23.0.1271.64 Safari/537.11',
-            ]),
-        }
+    def from_url(cls, url, tokenizer,
+                 useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0'):  # noqa
         session = CacheControl(Session())
         session.mount('http://', HTTPAdapter(max_retries=2))
         session.mount('https://', HTTPAdapter(max_retries=2))
         request = Request(method='GET',
                           url=url,
-                          headers=headers,
+                          headers={'User-Agent': useragent},
                           cookies=RequestsCookieJar())
         prepare = session.prepare_request(request)
         response = session.send(prepare, verify=True)
-
         return cls(response.text, tokenizer, url)
 
     def __init__(self, html_content, tokenizer, url=None):
@@ -81,22 +73,12 @@ class HtmlParser(DocumentParser):
             for (text, annotations) in paragraph:
                 if self._contains_any(annotations, 'a', 'strike', 's', 'span'):
                     words.extend(self.tokenize_words(text))
-
-        if words:
-            return tuple(words)
-
-        else:
-            return self.STIGMA_WORDS
+        return tuple(words) if words else self.STIGMA_WORDS
 
     def _contains_any(self, sequence, *args):
         if sequence is None:
             return False
-
-        for item in args:
-            if item in sequence:
-                return True
-
-        return False
+        return any([True for item in args if item in sequence])
 
     @cached_property
     def document(self):
@@ -104,28 +86,18 @@ class HtmlParser(DocumentParser):
         # dd del dfn dir dl dt em h h1 h2 h3 h4
         # h5 h6 i ins kbd li marquee menu ol pre q
         # s samp strike strong sub sup tt u ul var
-        headers = 'h1', 'h2', 'h3'
-        annotated_text = self._article.main_text
+        headers, annotated_text = ('h1', 'h2', 'h3'), self._article.main_text
         paragraphs = []
-
         for paragraph in annotated_text:
-            sentences, current_text = [], ''
-
-            for (text, annotations) in paragraph:
-
-                if annotations and any(h_tag in annotations
-                                       for h_tag in headers):
-                    sentences.append(Sentence(text,
-                                              self._tokenizer,
-                                              is_heading=True))
-
-                elif not (annotations and 'pre' in annotations):
-                    # skip <pre> nodes
+            sentences, current_text = list(), str()
+            for text, annotations in paragraph:
+                if annotations and any(h_tag in annotations for h_tag in headers):  # noqa
+                    sentences.append(Sentence(text, self._tokenizer, is_heading=True))  # noqa
+                # Skip <pre> Tags
+                elif not (annotations and 'pre' in annotations):  # noqa
                     current_text += ' ' + text
-
             new_sentences = self.tokenize_sentences(current_text)
-            sentences.extend(Sentence(s, self._tokenizer)
-                             for s in new_sentences)
+            sentences.extend(Sentence(s, self._tokenizer) for s in new_sentences)  # noqa
             paragraphs.append(Paragraph(sentences))
 
         return ObjectDocumentModel(paragraphs)
@@ -146,18 +118,32 @@ def run_summarizer(parser, sentences, language='english'):
 
 
 def get_parser(url, tokenizer):
-    article = Goose()
+    useragent = ' '.join([
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6)",
+        "AppleWebKit/537.36 (KHTML, like Gecko)",
+        "Chrome/52.0.2743.116 Safari/537.36"])
+
+    # Scrape Web Page With HTMLParser and Goose and select the best scrape
+    html_parser = HtmlParser.from_url(url, tokenizer, useragent=useragent)
+    article = Goose({'browser_user_agent': useragent})
+
+    # Goose raises IndexError when requesting unfamiliar sites.
     try:
-        g = article.extract(url=url)
+        extract = article.extract(url=url)
     except IndexError:
-        g = article.extract(raw_html=requests.get(url).text)
+        extract = article.extract(raw_html=requests.get(url).text)
+
+    goose_parser = PlaintextParser(extract, tokenizer)
+
+    # Aggregate Site Metadata
     meta = {
-        k: v for (k, v) in g.infos.items()
+        k: v for (k, v) in extract.infos.items()
         if k not in ('cleaned_text', 'links', 'tweets', 'movies')
     }
-    html = HtmlParser.from_url(url, tokenizer)
-    return (
-        html
-        if len(set(g.cleaned_text.split())) < len(html.document.words)
-        else PlaintextParser(g.cleaned_text, tokenizer)
-    ), meta
+    # Select Best Parser
+    parser = (
+        html_parser
+        if len(goose_parser.document.words) < len(html_parser.document.words) else  # noqa
+        goose_parser)
+
+    return parser, meta

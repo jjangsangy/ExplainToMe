@@ -62,59 +62,61 @@
 
     <!-- Article Image -->
     {% if meta['image']['url'] %}
-        <h3>Article Image</h3>
+    <h3>Article Image</h3>
+    <div class="row">
         <a href="{{ url }}">
             <img src="{{ meta['image']['url'] }}" class="img-thumbnail">
         </a>
+    </div>
     {% endif %}
 
 
     <h3>Breadcrumbs</h3>
     <!-- Authors -->
-    <div class="row">
     {% if meta['authors'] %}
+    <div class="row">
         <span class="label label-primary">By</span>
         <i class="fa fa-user"></i>
         {% for a in meta['authors'] %}
             {{ a }},
         {% endfor %}
-    {% endif %}
     </div>
+    {% endif %}
 
     <!-- Published Date -->
-    <div class="row">
     {% if meta['publish_date'] %}
+    <div class="row">
         <span class="label label-primary">Date</span>
         <span class="published">
             <i class="fa fa-calendar"></i>
             <time datetime="{{ meta['publish_date'] }}">{{ meta['publish_date'] | datetimefilter }}</time>
         </span>
-    {% endif %}
     </div>
+    {% endif %}
 
     <!-- Tags -->
-    <div class="row">
     {% if meta['tags'] %}
+    <div class="row">
         <span class="label label-info">Tags</span>
         <i class="fa fa-tag"></i>
             {% for tag in meta['tags'] %}<span class="label label-success">{{ tag }}</span>{% endfor %}
-    {% endif %}
     </div>
+    {% endif %}
 
     <!-- OpenGraph -->
-    <div class="row">
     {% if meta['opengraph'] %}
     <h3>Metadata</h3>
+    <div class="row">
         <ul class="list-group">
             {% for key, value in meta['opengraph'].iteritems() %}
-                <li class="list-group-item">
-                    <h5 class="list-group-item-heading">{{ key }}</h5>
-                    <p class="list-group-item-text">{{ value }}</p>
-                </li>
+                <dl class="dl-horizontal">
+                    <dt>{{ key }}</dt>
+                    <dd>{{ value }}</dl>
+                </dl>
             {% endfor %}
         </ul>
     </div>
-{% endif %}
+    {% endif %}
 </div> <!-- /Left Block -->
 
 {% endif %}

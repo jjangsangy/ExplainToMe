@@ -1,11 +1,11 @@
-var ExplainToMe = (function(document) {
+(function(document) {
     'use strict';
-    document.body.querySelectorAll("label").forEach(
-        function(item) {
+    var label = Array.from(document.body.querySelectorAll("label"));
+    label.forEach(function(item) {
             item.className = 'sr-only';
         }
-    );
-    document.body.getElementById("input-form").addEventListener("submit", function (e) {
+    )
+    document.getElementById("input-form").addEventListener("submit", function (e) {
         $("#input-form").fadeOut("slow");
         $("#loader").fadeIn("slow");
     });

@@ -2,11 +2,9 @@
 
 {% block title %}
 {% if url %}
-    {% if meta['title'] %}
-        {{ meta['title'] }}
-    {% else %}
-        ExplainToMe - Text Summarization for Humans
-    {% endif %}
+    {% if meta['title'] %} {{ meta['title'] }} {% else %} {{ super() }} {% endif %}
+{% else %}
+    {{ super() }}
 {% endif %}
 {% endblock %}
 

@@ -1,7 +1,7 @@
-from sumy.nlp.tokenizers import Tokenizer
-
 from flask import (Blueprint, make_response, redirect, render_template,
                    request, session, url_for)
+from sumy.nlp.tokenizers import Tokenizer
+
 from wtforms.validators import URL
 
 from ..forms import LinkForm
@@ -26,7 +26,13 @@ def summary():
     tokenizer = Tokenizer(language)
     parser, meta = get_parser(url, tokenizer)
     summary = run_summarizer(parser, max_sent, language)
-    session.update(dict(summary=summary, url=url, meta=meta, max_sent=max_sent))
+    session_data = dict(
+        summary=summary,
+        url=url,
+        meta=meta,
+        max_sent=max_sent
+    )
+    session.update(session_data)
     return redirect(url_for('site.index', _anchor='summary'))
 
 

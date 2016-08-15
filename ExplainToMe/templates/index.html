@@ -12,14 +12,18 @@
 
 {% block favicon %}
     {% if url %}
-        {% if meta['meta']['favicon'] %} <link href="{{ meta['meta']['favicon'] }}" rel="icon"> {% else %} {{ super() }} {% endif %}
+        {% if meta['meta']['favicon'] %}
+            <link type="image/x-icon" href="{{ meta['meta']['favicon'] }}" rel="icon">
+        {% else %}
+            {{ super() }}
+        {% endif %}
     {% else %}
         {{ super() }}
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    <form role="form" class="form-inline" action="/summary" method="post">
+    <form role="form" class="form-inline" action="/summary" method="POST">
         {{ form.csrf_token }}
         <div class="form-group">
             {{ form.url.label }}
@@ -30,9 +34,9 @@
             {{ form.max_sent() }}
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-success">
-            <span class="glyphicon glyphicon-search"></span>
-            Submit
+            <button id="send" type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-send"></span>
+                Send
             </button>
         </div>
     </form>

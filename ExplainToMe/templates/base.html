@@ -5,8 +5,16 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Sang Han" />
+    <meta name="description" content="Website Article Summarizer" />
+    <meta name="robots" content="index,nofollow" />
+    <meta property="og:image" content="{{ url_for('static', filename='img/intro-bg.jpg') }}" />
+    <meta property="og:title" content="ExplainToMe" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Website Article Summarizer" />
+
     {% block favicon %}
         <link type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
     {% endblock %}

@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Sang Han" />
-    <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+    {% block favicon %}
+        <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+    {% endblock %}
     <title>{% block title %}{% endblock %}</title>
     {% block css %}
     <link

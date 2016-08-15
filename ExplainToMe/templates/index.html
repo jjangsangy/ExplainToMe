@@ -10,6 +10,14 @@
 {% endif %}
 {% endblock %}
 
+{% block favicon %}
+    {% if url %}
+        {% if meta['meta']['favicon'] %} <link href="{{ meta['favicon'] }}" rel="icon"> {% else %} {{ super() }} {% endif %}
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     <form role="form" class="form-inline" action="/summary" method="post">
         {{ form.csrf_token }}

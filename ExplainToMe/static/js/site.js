@@ -7,6 +7,6 @@ document.querySelectorAll("label").forEach(
 );
 
 document.getElementById("input-form").addEventListener("submit", function (e) {
-    $("#input-form").fadeOut();
-    $("#loader").fadeIn();
+    $("#input-form").fadeOut("slow");
+    $("#loader").fadeIn("slow");
 });

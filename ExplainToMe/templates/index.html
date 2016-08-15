@@ -23,7 +23,11 @@
 {% endblock %}
 
 {% block content %}
-
+<div id="loader" class="cssload-square" hidden>
+	<div class="cssload-square-part cssload-square-green"></div>
+	<div class="cssload-square-part cssload-square-pink"></div>
+	<div class="cssload-square-blend"></div>
+</div>
 <form id="input-form" role="form" class="form-inline" action="/summary" method="POST">
     {{ form.csrf_token }}
     <div class="form-group">
@@ -41,12 +45,6 @@
         </button>
     </div>
 </form>
-
-<div id="loader" class="cssload-square" hidden>
-	<div class="cssload-square-part cssload-square-green"></div>
-	<div class="cssload-square-part cssload-square-pink"></div>
-	<div class="cssload-square-blend"></div>
-</div>
 {% endblock %}
 
 {% block summary %}

@@ -12,7 +12,7 @@
 
 {% block favicon %}
     {% if url %}
-        {% if meta['meta']['favicon'] %} <link href="{{ meta['favicon'] }}" rel="icon"> {% else %} {{ super() }} {% endif %}
+        {% if meta['meta']['favicon'] %} <link href="{{ meta['meta']['favicon'] }}" rel="icon"> {% else %} {{ super() }} {% endif %}
     {% else %}
         {{ super() }}
     {% endif %}

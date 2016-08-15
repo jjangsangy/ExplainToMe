@@ -23,23 +23,30 @@
 {% endblock %}
 
 {% block content %}
-    <form role="form" class="form-inline" action="/summary" method="POST">
-        {{ form.csrf_token }}
-        <div class="form-group">
-            {{ form.url.label }}
-            {{ form.url() }}
-        </div>
-        <div class="form-group">
-            {{ form.max_sent.label }}
-            {{ form.max_sent() }}
-        </div>
-        <div class="form-group">
-            <button id="send" type="submit" class="btn btn-success">
-                <span class="glyphicon glyphicon-send"></span>
-                Send
-            </button>
-        </div>
-    </form>
+
+<form id="input-form" role="form" class="form-inline" action="/summary" method="POST">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.url.label }}
+        {{ form.url() }}
+    </div>
+    <div class="form-group">
+        {{ form.max_sent.label }}
+        {{ form.max_sent() }}
+    </div>
+    <div class="form-group">
+        <button id="send" type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-send"></span>
+            Send
+        </button>
+    </div>
+</form>
+
+<div id="loader" class="cssload-square" hidden>
+	<div class="cssload-square-part cssload-square-green"></div>
+	<div class="cssload-square-part cssload-square-pink"></div>
+	<div class="cssload-square-blend"></div>
+</div>
 {% endblock %}
 
 {% block summary %}

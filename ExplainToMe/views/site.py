@@ -1,4 +1,4 @@
-from flask import (Blueprint, make_response, redirect, render_template,
+from flask import (Blueprint, flash, make_response, redirect, render_template,
                    request, session, url_for)
 from sumy.nlp.tokenizers import Tokenizer
 

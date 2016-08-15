@@ -8,10 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Sang Han" />
     {% block favicon %}
-        <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+        <link type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
     {% endblock %}
     <title>{% block title %}{% endblock %}</title>
-    {% block css %}
     <link
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         rel="stylesheet"
@@ -19,7 +18,7 @@
         crossorigin="anonymous" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
     <link href="{{ url_for('static', filename='css/style.css') }}" rel=stylesheet />
-    {% endblock %}
+    <link href="{{ url_for('static', filename='css/animation.css') }}" rel=stylesheet />
     {{ fixes.ie8() }}
 </head>
 <body>

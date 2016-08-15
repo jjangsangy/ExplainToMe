@@ -5,3 +5,8 @@ document.querySelectorAll("label").forEach(
         item.className = 'sr-only';
     }
 );
+
+document.getElementById("input-form").addEventListener("submit", function (e) {
+    $("#input-form").fadeOut();
+    $("#loader").fadeIn();
+});

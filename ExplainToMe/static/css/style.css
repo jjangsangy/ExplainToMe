@@ -139,13 +139,11 @@ body {
 }
 
 .banner-social-buttons {
-    float: right;
     margin-top: 0;
 }
 
 @media(max-width:1199px) {
     ul.banner-social-buttons {
-        float: right;
         margin-top: 15px;
     }
 }

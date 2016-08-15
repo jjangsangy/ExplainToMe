@@ -30,8 +30,10 @@ $ git clone https://github.com/jjangsangy/ExplainToMe.git
 
 ## Create a virtualenv
 
+Currently we only support Python 2 due to the a dependency on [Python-Goose](https://github.com/grangier/python-goose)
+
 ```bash
-$ virtualenv -p python3 venv
+$ virtualenv -p python2 venv
 ```
 
 ## Source Virtualenv

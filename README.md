@@ -53,8 +53,10 @@ $ pip install -r requirements.txt
 
 ```bash
 $ python manage.py runserver
-Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
+
+Now go to your browser and point it towards `http://127.0.0.1:5000`
 
 # Things to look forward to:
 

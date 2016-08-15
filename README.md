@@ -5,7 +5,7 @@
 
 ## Text Summarization for Humans
 
-![image](static/front.png)
+![image](./static/front.jpg)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 

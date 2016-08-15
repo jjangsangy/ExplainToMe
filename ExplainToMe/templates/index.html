@@ -63,7 +63,9 @@
     <!-- Article Image -->
     {% if meta['image']['url'] %}
         <h3>Article Image</h3>
-        <img src="{{ meta['image']['url'] }}" class="img-thumbnail">
+        <a href="{{ url }}">
+            <img src="{{ meta['image']['url'] }}" class="img-thumbnail">
+        </a>
     {% endif %}
 
 

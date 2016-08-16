@@ -6,11 +6,11 @@ import os
 
 from dateutil.parser import parser
 from flask import Flask
+
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 from flask_heroku import Heroku
 from flask_wtf import CsrfProtect
-from flaskext.markdown import Markdown
 
 from .views.site import site
 
@@ -39,4 +39,3 @@ cors = CORS(app)
 bootstrap = Bootstrap(app)
 heroku = Heroku(app)
 csrfprotect = CsrfProtect(app)
-markdown = Markdown(app)

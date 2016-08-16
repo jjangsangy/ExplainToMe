@@ -2,13 +2,12 @@ Flask==0.11.1
 Flask-Script==2.0.5
 Flask-CORS==2.1.2
 Flask-Bootstrap==3.3.6.0
-autoenv==1.0.0
 Flask-Heroku==0.1.9
 Flask-Debugtoolbar==0.10.0
 Flask-WTF==0.12
-Flask-Markdown==0.3
 goose-extractor==1.0.25
 ipython==5.0.0
+Flask-Assets==0.11
 gunicorn
 futures
 python-dateutil

@@ -33,4 +33,6 @@ RUN apk add --no-cache --virtual .build-deps \
 COPY . .
 
 RUN python -m nltk.downloader punkt
-CMD gunicorn -b 0.0.0.0:8000 ExplainToMe.wsgi:app
+
+EXPOSE 8000
+ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000","ExplainToMe.wsgi:app"]

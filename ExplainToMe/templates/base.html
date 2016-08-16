@@ -10,10 +10,9 @@
     <meta name="author" content="Sang Han" />
     <meta name="description" content="Website Article Summarizer" />
     <meta name="robots" content="index,nofollow" />
-    <meta property="og:image" content="{{ request.url }}{{ url_for('static', filename='img/intro-bg.jpg') | replace('/', '', count=1) }}" />
-    <meta property="og:image:url" content="{{ request.url }}{{ url_for('static', filename='img/intro-bg.jpg') | replace('/', '', count=1) }}" />
-    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="fb:app_id" content="1281440855213573" />
     <meta property="og:title" content="ExplainToMe" />
+    <meta property="og:image" content="{{ request.url }}{{ url_for('static', filename='img/intro-bg.jpg') | replace('/', '', count=1) }}" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="Website Article Summarizer" />
     <title>{% block title %}ExplainToMe - Text Summarization for Humans{% endblock %}</title>

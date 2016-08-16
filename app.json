@@ -1,6 +1,6 @@
 {
     "name": "ExplainToMe",
-    "description": "Text Summarization For Humans",
+    "description": "Automatic Web Article Summarizer",
     "repository": "https://github.com/jjangsangy/ExplainToMe",
     "logo": "https://raw.githubusercontent.com/jjangsangy/ExplainToMe/master/ExplainToMe/static/img/favicon.ico",
     "keywords": ["python", "nlp", "summarization", "flask"]

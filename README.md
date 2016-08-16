@@ -3,7 +3,7 @@
 [![travis](https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master)](https://travis-ci.org/jjangsangy/ExplainToMe)
 [![licence](https://img.shields.io/pypi/l/coverage.svg)](https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE)
 
-## Text Summarization for Humans
+## Automatic Web Article Summarizer
 
 ![image](./static/front.jpg)
 

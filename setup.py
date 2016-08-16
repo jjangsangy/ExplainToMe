@@ -2,18 +2,18 @@
 """
 Explain To Me
 =============
-A Text Summarizer for Humans
+Automatic Web Article Summarizer
 
 :copyright (c) 2015 Sang Han:
 """
 
-from version import __version__ as version
 from setuptools import setup
 
+from version import __version__ as version
 
 setup(
     name='ExplainToMe',
-    description='A Text Summarizer for Humans',
+    description='Automatic Web Article Summarizer',
     long_description='\n'.join(
         [
             open('README.rst', 'rb').read().decode('utf-8'),

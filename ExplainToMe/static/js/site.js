@@ -7,15 +7,11 @@
     $("#input-form").each(function () {
         this.preventNextSubmit = true;
     }).submit(function (event) {
+        var form = $(this);
         if (this.preventNextSubmit) {
             this.preventNextSubmit = false;
             event.preventDefault();
-            var form = $(this);
-            $('#loader').slideToggle("fast", function () {
-                form.slideToggle("slow", function () {
-                    form.submit();
-                });
-            });
+            $('#loader').slideToggle({duration: 400, complete: form.slideToggle(800), always: form.submit()});
         }
     });
 })();

@@ -18,7 +18,7 @@ def valid_url(raw_url):
     return validator.validate_hostname(match.group('host'))
 
 
-@site.route('/webhook', methods=['POST'])
+@site.route('/webhook')
 def webhook():
     sig = request.headers("x-hub-signature", '')
     if not sig:

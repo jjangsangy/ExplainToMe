@@ -20,7 +20,7 @@ def valid_url(raw_url):
 
 @site.route('/webhook')
 def webhook():
-    sig = request.headers("x-hub-signature", '')
+    sig = request.headers.get("x-hub-signature", '')
     if not sig:
         return {"error": "could not validate signature"}
     return redirect(url_for('site.index'), code=200)

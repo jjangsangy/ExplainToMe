@@ -28,6 +28,7 @@ def webhook():
     fb_args = dict([tuple(i.split('=')) for i in request.query_string.split('&')])
     if 'hub.verify_token' in pack:
         assert fb_args['hub.verify_token'] == os.getenv('VALIDATION_TOKEN', '')
+    print(fb_args)
     print(signature)
     print(hashlib.sha1(signature.encode('utf-8')).hexdigest())
 

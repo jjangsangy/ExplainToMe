@@ -1,5 +1,5 @@
-from flask import (Blueprint, flash, make_response, redirect, render_template,
-                   request, session, url_for)
+from flask import (Blueprint, flash, jsonify, make_response, redirect,
+                   render_template, request, session, url_for)
 from sumy.nlp.tokenizers import Tokenizer
 
 from wtforms.validators import URL
@@ -22,7 +22,8 @@ def valid_url(raw_url):
 def webhook():
     sig = request.headers.get("x-hub-signature", '')
     if not sig:
-        return {"error": "could not validate signature"}
+        jsonify
+        return jsonify({"error": "could not validate signature"}), 200
     return redirect(url_for('site.index'), code=200)
 
 

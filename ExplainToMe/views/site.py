@@ -1,3 +1,6 @@
+import hashlib
+import os
+
 from flask import (Blueprint, flash, jsonify, make_response, redirect,
                    render_template, request, session, url_for)
 from sumy.nlp.tokenizers import Tokenizer
@@ -20,10 +23,13 @@ def valid_url(raw_url):
 
 @site.route('/webhook')
 def webhook():
-    sig = request.headers.get("x-hub-signature", '')
-    if not sig:
-        jsonify
-        return jsonify({"error": "could not validate signature"}), 200
+    pack = {}
+    signature = request.headers.get('X-Hub-Signature', '')
+    fb_args = dict([tuple(i.split('=')) for i in request.query_string.split('&')])
+    if 'hub.verify_token' in pack:
+        assert fb_args['hub.verify_token'] == os.getenv('VALIDATION_TOKEN', '')
+    print(haslib.sha1(signature.encode('utf-8')).hexdigest())
+
     return redirect(url_for('site.index'), code=200)
 
 

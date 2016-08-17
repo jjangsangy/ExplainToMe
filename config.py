@@ -11,7 +11,7 @@ class BaseConfig(object):
     MESSENGER_VALIDATION_TOKEN = None
     PAGE_ACCESS_TOKEN = None
     SERVER_URL = None
-    VALIDAYION_TOKEN = None
+    VALIDATION_TOKEN = None
 
 
 class ProductionConfig(BaseConfig):

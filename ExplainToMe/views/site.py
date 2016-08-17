@@ -18,6 +18,14 @@ def valid_url(raw_url):
     return validator.validate_hostname(match.group('host'))
 
 
+@site.route('/webhook', methods=['POST'])\
+        def webhook():
+    sig = request.headers("x-hub-signature", '')
+    if not sig:
+        return {"error": "could not validate signature"}
+    return redirect(url_for('site.index'), code=200)
+
+
 @site.route('/summary', methods=['POST'])
 def summary():
     language = 'english'

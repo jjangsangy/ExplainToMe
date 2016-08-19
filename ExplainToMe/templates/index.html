@@ -96,9 +96,7 @@
     <div class="row">
         <span class="label label-primary">By</span>
         <i class="fa fa-user"></i>
-        {% for a in meta['authors'] %}
-            {{ a }},
-        {% endfor %}
+        {{ meta['authors']|join(', ') }}
     </div>
     {% endif %}
 
@@ -118,7 +116,7 @@
     <div class="row">
         <span class="label label-info">Tags</span>
         <i class="fa fa-tag"></i>
-            {% for tag in meta['tags'] %}<span class="label label-success">{{ tag }}</span>{% endfor %}
+            {% for tag in meta['tags'] %} <span class="label label-success">{{ tag }}</span>{% endfor %}
     </div>
     {% endif %}
 

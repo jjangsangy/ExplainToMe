@@ -1,19 +1,26 @@
 language: python
 python:
     - '2.7'
+    - '3.5'
     - 'pypy'
-
+    - 'pypy3'
+before_install:
+    - pip install cython
 install:
     - pip install -r requirements.txt
-
 script:
     true
 
 matrix:
   allow_failures:
     - python: pypy
-    - python: pypy3
-
+    - python: 3.5
+addons:
+  apt:
+    packages:
+    - libxml2-dev
+    - libxslt-dev
+    - gcc
 cache:
   directories:
     - $HOME/.cache/pip

@@ -1,9 +1,7 @@
 FROM python:2.7-alpine
 MAINTAINER Sang Han <jjangsangy@gmail.com>
-ENV INSTALL_PATH /app
-RUN mkdir -p $INSTALL_PATH
-WORKDIR $INSTALL_PATH
-COPY requirements.txt requirements.txt
+
+COPY ./requirements.txt /requirements.txt
 
 RUN apk add --no-cache --virtual .build-deps \
         build-base \
@@ -18,7 +16,7 @@ RUN apk add --no-cache --virtual .build-deps \
         libxml2-dev \
         libxslt-dev \
         py-pip \
-    && CFLAGS="$CFLAGS -L/lib" pip install -r requirements.txt \
+    && CFLAGS="$CFLAGS -L/lib" pip install -r /requirements.txt \
     && find /usr/local \( -type d -a -name test -o -name tests \) \
             -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
             -exec rm -rf '{}' + \
@@ -28,11 +26,12 @@ RUN apk add --no-cache --virtual .build-deps \
                 | xargs -r apk info --installed \
                 | sort -u)" \
     && apk add --virtual .rundeps $runDeps \
-    && apk del .build-deps
+    && apk del .build-deps \
+    && python -m nltk.downloader punkt \
+    && rm -rf /root/.cache
 
-COPY . .
-
-RUN python -m nltk.downloader punkt
-
+ENV INSTALL_PATH /app
+COPY . ${INSTALL_PATH}
+WORKDIR ${INSTALL_PATH}
 EXPOSE 8000
 ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000","ExplainToMe.wsgi:app"]

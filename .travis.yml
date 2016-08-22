@@ -1,7 +1,6 @@
 language: python
 python:
     - '2.7'
-    - '3.5'
     - 'pypy'
 before_install:
     - pip install cython
@@ -9,9 +8,6 @@ install:
     - pip install -r requirements.txt
 script:
     true
-matrix:
-  allow_failures:
-    - python: 3.5
 addons:
   apt:
     packages:

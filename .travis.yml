@@ -14,10 +14,11 @@ addons:
   apt:
     packages:
     - python-libxml2
-    - libxslt1-dev
-    - zlib1g-dev
-    - python-dev
-    - gcc
+    - libtiff4-dev
+    - libjpeg8-dev
+    - libfreetype6-dev
+    - liblcms2-dev
+    - libwebp-dev
 cache:
   directories:
     - $HOME/.cache/pip

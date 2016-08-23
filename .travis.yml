@@ -8,8 +8,6 @@ python:
 before_install:
     - pip install -U pip wheel setuptools
 install:
-    - pip install cython
-    - if [ ${TRAVIS_PYTHON_VERSION} == 'pypy' ]; then travis_retry pip install cffi lxml-cffi; fi
     - pip install -r requirements.txt
 script:
     true

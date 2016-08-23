@@ -13,8 +13,9 @@ script:
 addons:
   apt:
     packages:
-    - libxml2-dev
-    - libxslt-dev
+    - python-libxml2
+    - libxslt1-dev
+    - zlib1g-dev
     - python-dev
     - gcc
 cache:

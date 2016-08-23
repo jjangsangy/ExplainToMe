@@ -18,6 +18,15 @@ extract a concise machine generated summary. The methodology is similar
 to the way search engines return the most relevant web pages from a
 users search query.
 
+# Support
+
+Here’s a list of Python platforms that are officially supported.
+
+* Python 2.7
+* Python 3.4
+* Python 3.5
+* pypy 2.5.0 -> 2.7.9
+
 # Quickstart
 
 # Install
@@ -30,10 +39,8 @@ $ git clone https://github.com/jjangsangy/ExplainToMe.git
 
 ## Create a virtualenv
 
-Currently we only support Python 2 due to the a dependency on [Python-Goose](https://github.com/grangier/python-goose)
-
 ```bash
-$ virtualenv -p python2 venv
+$ virtualenv -p python venv
 ```
 
 ## Source Virtualenv

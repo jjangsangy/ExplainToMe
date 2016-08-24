@@ -48,9 +48,8 @@ def valid_url(raw_url):
     return validator.validate_hostname(match.group('host'))
 
 
-@site.route('/webhook', methods=['POST'])
 def recieve():
-    data = request.get_json()
+    data = json.loads(request.data)
     log(data)
     if data["object"] == "page":
         for entry in data["entry"]:
@@ -67,18 +66,21 @@ def recieve():
                 # user clicked/tapped "postback" button in earlier message
                 if message.get("postback"):
                     pass
-    return "ok", 200
+    return 'ok', 200
 
 
-@site.route('/webhook', methods=['GET'])
+@site.route('/webhook', methods=['GET', 'POST'])
 def webhook():
-    if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
-        if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
-            return request.args['hub.challenge'], 200
-        else:
-            return "Verification token mismatch", 403
+    if request.method.upper() == 'POST':
+        return recieve()
+    if request.method.upper() == 'GET':
+        if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
+            if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
+                return request.args['hub.challenge'], 200
+            else:
+                return "Verification token mismatch", 403
 
-    return redirect(url_for('site.index'))
+        return redirect(url_for('site.index'))
 
 
 @site.route('/summary', methods=['POST'])

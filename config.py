@@ -7,11 +7,6 @@ class BaseConfig(object):
     DEBUG = False
     CSRF_ENABLED = True
     ASSETS_DEBUG = True
-    MESSENGER_APP_SECRET = None
-    MESSENGER_VALIDATION_TOKEN = None
-    PAGE_ACCESS_TOKEN = None
-    SERVER_URL = None
-    VALIDATION_TOKEN = None
 
 
 class ProductionConfig(BaseConfig):

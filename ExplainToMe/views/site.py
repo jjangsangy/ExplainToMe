@@ -11,7 +11,6 @@ import requests
 from flask import (Blueprint, flash, jsonify, make_response, redirect,
                    render_template, request, session, url_for)
 from sumy.nlp.tokenizers import Tokenizer
-
 from wtforms.validators import URL
 
 from ..forms import LinkForm
@@ -22,14 +21,14 @@ logger = logging.getLogger(__name__)
 site = Blueprint('site', __name__)
 
 
-def respond(recipient_id, message_text, response="Thanks"):
+def respond(recipient_id, message_text):
     logger.info(message_text)
     data = {
         "recipient": {
             "id": recipient_id
         },
         "message": {
-            "text": response
+            "text": message_text
         }
     }
     resp = requests.post(
@@ -52,13 +51,14 @@ def valid_url(raw_url):
 def recieve():
     data = json.loads(request.data)
     logger.info(data)
-    if data["object"] != "page":
+    if data.get("object", '') != "page":
         return 'ok', 200
+    return 'ok', 200
     for entry in data["entry"]:
         for message in entry['messaging']:
             # someone sent us a message
             if message.get("message", ''):
-                logger.info(respond(message["sender"]["id"], message["message"]["text"]))
+                logger.info(respond(message["sender"]["id"], 'thanks')
             # delivery confirmation
             if message.get("delivery", ''):
                 pass
@@ -87,13 +87,13 @@ def webhook():
 
 @site.route('/summary', methods=['POST'])
 def summary():
-    language = 'english'
-    url = request.form.get('url', '')
-    max_sent = int(request.form.get('max_sent', 10))
-    tokenizer = Tokenizer(language)
-    parser, meta = get_parser(url, tokenizer)
-    summary = run_summarizer(parser, max_sent, language)
-    session_data = dict(
+    language='english'
+    url=request.form.get('url', '')
+    max_sent=int(request.form.get('max_sent', 10))
+    tokenizer=Tokenizer(language)
+    parser, meta=get_parser(url, tokenizer)
+    summary=run_summarizer(parser, max_sent, language)
+    session_data=dict(
         summary=summary,
         url=url,
         meta=meta,

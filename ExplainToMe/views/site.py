@@ -51,23 +51,10 @@ def valid_url(raw_url):
 def recieve():
     data = json.loads(request.data)
     logger.info(data)
-    if data.get("object", '') != "page":
-        return 'ok', 200
-    return 'ok', 200
     for entry in data["entry"]:
         for message in entry['messaging']:
-            # someone sent us a message
-            if message.get("message", ''):
+            if 'message' in message:
                 logger.info(respond(message["sender"]["id"], 'thanks')
-            # delivery confirmation
-            if message.get("delivery", ''):
-                pass
-            # optin confirmation
-            if message.get("optin", ''):
-                pass
-            # user clicked/tapped "postback" button in earlier message
-            if message.get("postback", ''):
-                pass
     return 'ok', 200
 
 

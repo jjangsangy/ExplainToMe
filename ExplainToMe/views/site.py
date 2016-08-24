@@ -40,7 +40,7 @@ def valid_url(raw_url):
     return validator.validate_hostname(match.group('host'))
 
 
-@site.route('/messenger', methods=['POST'])
+@site.route('/webhook', methods=['POST'])
 def recieve():
     data = request.get_json()
     if data["object"] == "page":
@@ -54,7 +54,7 @@ def recieve():
     return "ok", 200
 
 
-@site.route('/webhook')
+@site.route('/webhook', methods=['GET'])
 def webhook():
     pack = {}
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
@@ -62,6 +62,8 @@ def webhook():
             return request.args['hub.challenge'], 200
         else:
             return "Verification token mismatch", 403
+
+    return "Hello world", 200
 
 
 @site.route('/summary', methods=['POST'])

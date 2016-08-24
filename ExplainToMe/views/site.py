@@ -54,7 +54,7 @@ def recieve():
     for entry in data["entry"]:
         for message in entry['messaging']:
             if 'message' in message:
-                logger.info(respond(message["sender"]["id"], 'thanks')
+                respond(message["sender"]["id"], "thanks")
     return 'ok', 200
 
 

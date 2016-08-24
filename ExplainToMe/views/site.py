@@ -57,9 +57,8 @@ def recieve():
 @site.route('/webhook')
 def webhook():
     pack = {}
-    fb_args = dict([tuple(i.split('=')) for i in request.query_string.split('&')])
-    if 'hub.verify_token' in pack:
-        if fb_args['hub.verify_token'] == os.getenv('VALIDATION_TOKEN', ''):
+    if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
+        if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return fb_args['hub.challenge'], 200
         else:
             return "Verification token mismatch", 403

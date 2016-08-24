@@ -46,24 +46,25 @@ def recieve():
     if data["object"] == "page":
         for entry in data["entry"]:
             for message in entry["messaging"]:
-                if message.get("message"):  # someone sent us a message
-                    sender_id = message["sender"]["id"]        # the facebook ID of the person sending you the message
-                    recipient_id = message["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = message["message"]["text"]  # the message's text
+                # someone sent us a message
+                if message.get("message"):
+                    # the facebook ID of the person sending you the message
+                    sender_id = message["sender"]["id"]
+                    recipient_id = message["recipient"]["id"]
+                    message_text = message["message"]["text"]
                     resp = respond(sender_id, message_text)
     return "ok", 200
 
 
 @site.route('/webhook', methods=['GET'])
 def webhook():
-    pack = {}
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return request.args['hub.challenge'], 200
         else:
             return "Verification token mismatch", 403
 
-    return "Hello world", 200
+    return redirect(url_for('site.index'))
 
 
 @site.route('/summary', methods=['POST'])

@@ -15,6 +15,7 @@ site = Blueprint('site', __name__)
 
 
 def respond(recipient_id, message_text, response="Thanks"):
+    print(message_text)
     data = {
         "recipient": {
             "id": recipient_id
@@ -43,16 +44,22 @@ def valid_url(raw_url):
 @site.route('/webhook', methods=['POST'])
 def recieve():
     data = request.get_json()
+    print(data)
     if data["object"] == "page":
         for entry in data["entry"]:
             for message in entry["messaging"]:
                 # someone sent us a message
                 if message.get("message"):
-                    # the facebook ID of the person sending you the message
-                    sender_id = message["sender"]["id"]
-                    recipient_id = message["recipient"]["id"]
-                    message_text = message["message"]["text"]
-                    resp = respond(sender_id, message_text)
+                    resp = respond(message["sender"]["id"], message["message"]["text"])
+                # delivery confirmation
+                if message.get("delivery"):
+                    pass
+                # optin confirmation
+                if message.get("optin"):
+                    pass
+                # user clicked/tapped "postback" button in earlier message
+                if message.get("postback"):
+                    pass
     return "ok", 200
 
 

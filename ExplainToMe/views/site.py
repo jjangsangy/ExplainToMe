@@ -1,4 +1,6 @@
 
+from __future__ import print_function
+
 import json
 import os
 import sys
@@ -36,8 +38,8 @@ def respond(recipient_id, message_text, response="Thanks"):
 
 
 def log(message):
-    print(str(message))
-    sys.stdout.flush()
+    print(str(message), file=sys.stderr)
+    sys.stderr.flush()
 
 
 def valid_url(raw_url):
@@ -51,21 +53,22 @@ def valid_url(raw_url):
 def recieve():
     data = json.loads(request.data)
     log(data)
-    if data["object"] == "page":
-        for entry in data["entry"]:
-            for message in entry["messaging"]:
-                # someone sent us a message
-                if message.get("message"):
-                    log(respond(message["sender"]["id"], message["message"]["text"]))
-                # delivery confirmation
-                if message.get("delivery"):
-                    pass
-                # optin confirmation
-                if message.get("optin"):
-                    pass
-                # user clicked/tapped "postback" button in earlier message
-                if message.get("postback"):
-                    pass
+    if data["object"] != "page":
+        return 'ok', 200
+    for entry in data["entry"]:
+        for message in entry['messaging']:
+            # someone sent us a message
+            if message.get("message", ''):
+                log(respond(message["sender"]["id"], message["message"]["text"]))
+            # delivery confirmation
+            if message.get("delivery", ''):
+                pass
+            # optin confirmation
+            if message.get("optin", ''):
+                pass
+            # user clicked/tapped "postback" button in earlier message
+            if message.get("postback", ''):
+                pass
     return 'ok', 200
 
 

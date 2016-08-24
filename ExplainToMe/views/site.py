@@ -59,7 +59,7 @@ def webhook():
     pack = {}
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
-            return fb_args['hub.challenge'], 200
+            return request.args['hub.challenge'], 200
         else:
             return "Verification token mismatch", 403
 

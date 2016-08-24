@@ -1,2 +1,2 @@
-web: gunicorn ExplainToMe.wsgi:app
+web: python manage.py runserver
 

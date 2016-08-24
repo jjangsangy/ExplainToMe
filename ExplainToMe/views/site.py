@@ -1,5 +1,7 @@
 
+import json
 import os
+import sys
 
 import requests
 from flask import (Blueprint, flash, jsonify, make_response, redirect,
@@ -15,7 +17,7 @@ site = Blueprint('site', __name__)
 
 
 def respond(recipient_id, message_text, response="Thanks"):
-    print(message_text)
+    log(message_text)
     data = {
         "recipient": {
             "id": recipient_id
@@ -28,9 +30,14 @@ def respond(recipient_id, message_text, response="Thanks"):
         "https://graph.facebook.com/v2.6/me/messages",
         params={"access_token": os.environ["PAGE_ACCESS_TOKEN"]},
         headers={"Content-Type": 'application/json'},
-        data=data,
+        data=json.dumps(data),
     )
     return resp
+
+
+def log(message):
+    print(str(message))
+    sys.stdout.flush()
 
 
 def valid_url(raw_url):
@@ -44,13 +51,13 @@ def valid_url(raw_url):
 @site.route('/webhook', methods=['POST'])
 def recieve():
     data = request.get_json()
-    print(data)
+    log(data)
     if data["object"] == "page":
         for entry in data["entry"]:
             for message in entry["messaging"]:
                 # someone sent us a message
                 if message.get("message"):
-                    resp = respond(message["sender"]["id"], message["message"]["text"])
+                    log(respond(message["sender"]["id"], message["message"]["text"]))
                 # delivery confirmation
                 if message.get("delivery"):
                     pass

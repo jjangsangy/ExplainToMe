@@ -2,6 +2,7 @@
 ExplainToMe
 ===========
 """
+import logging
 import os
 
 from dateutil.parser import parser
@@ -16,6 +17,10 @@ from .views.site import site
 
 __title__ = 'ExplainToMe'
 __license__ = 'Apache Software License Version 2.0'
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 

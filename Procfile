@@ -1,2 +1,2 @@
-web: python manage.py runserver 0.0.0.0:8000
+web: gunicorn --log-level DEBUG ExplainToMe.wsgi:app
 

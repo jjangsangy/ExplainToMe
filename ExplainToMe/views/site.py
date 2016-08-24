@@ -2,6 +2,8 @@
 from __future__ import print_function
 
 import json
+import logging
+import logging.config
 import os
 import sys
 
@@ -15,11 +17,13 @@ from wtforms.validators import URL
 from ..forms import LinkForm
 from ..textrank import get_parser, run_summarizer
 
+logger = logging.getLogger(__name__)
+
 site = Blueprint('site', __name__)
 
 
 def respond(recipient_id, message_text, response="Thanks"):
-    log(message_text)
+    logger.info(message_text)
     data = {
         "recipient": {
             "id": recipient_id
@@ -30,16 +34,11 @@ def respond(recipient_id, message_text, response="Thanks"):
     }
     resp = requests.post(
         "https://graph.facebook.com/v2.6/me/messages",
-        params={"access_token": os.environ["PAGE_ACCESS_TOKEN"]},
+        params={"access_token": os.getenv("PAGE_ACCESS_TOKEN")},
         headers={"Content-Type": 'application/json'},
         data=json.dumps(data),
     )
     return resp
-
-
-def log(message):
-    print(str(message), file=sys.stderr)
-    sys.stderr.flush()
 
 
 def valid_url(raw_url):
@@ -52,14 +51,14 @@ def valid_url(raw_url):
 
 def recieve():
     data = json.loads(request.data)
-    log(data)
+    logger.info(data)
     if data["object"] != "page":
         return 'ok', 200
     for entry in data["entry"]:
         for message in entry['messaging']:
             # someone sent us a message
             if message.get("message", ''):
-                log(respond(message["sender"]["id"], message["message"]["text"]))
+                logger.info(respond(message["sender"]["id"], message["message"]["text"]))
             # delivery confirmation
             if message.get("delivery", ''):
                 pass

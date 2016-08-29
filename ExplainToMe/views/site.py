@@ -20,6 +20,8 @@ logger = logging.getLogger(__name__)
 
 site = Blueprint('site', __name__)
 
+VERSION = '1.0'
+
 
 def respond(recipient_id, message_text):
     logger.info(message_text)
@@ -48,6 +50,18 @@ def valid_url(raw_url):
     return validator.validate_hostname(match.group('host'))
 
 
+def get_summary(url, max_sent, language='english'):
+    tokenizer = Tokenizer(language)
+    parser, meta = get_parser(url, tokenizer)
+    summary = run_summarizer(parser, max_sent, language)
+    return dict(
+        summary=summary,
+        url=url,
+        meta=meta,
+        max_sent=max_sent
+    )
+
+
 def recieve():
     data = json.loads(request.data)
     logger.info(data)
@@ -72,21 +86,21 @@ def webhook():
         return redirect(url_for('site.index'))
 
 
+@site.route('/api/v{VERSION}/summary'.format(VERSION=VERSION), methods=['POST'])
+def api():
+    language = 'english'
+    url = request.json.get('url')
+    max_sent = request.json.get('max_sent', 10)
+    session_data = get_summary(url, max_sent, language)
+    return jsonify(**session_data)
+
+
 @site.route('/summary', methods=['POST'])
 def summary():
-    language='english'
-    url=request.form.get('url', '')
-    max_sent=int(request.form.get('max_sent', 10))
-    tokenizer=Tokenizer(language)
-    parser, meta=get_parser(url, tokenizer)
-    summary=run_summarizer(parser, max_sent, language)
-    session_data=dict(
-        summary=summary,
-        url=url,
-        meta=meta,
-        max_sent=max_sent
-    )
-    session.update(session_data)
+    language = 'english'
+    url = request.form.get('url', '')
+    max_sent = int(request.form.get('max_sent', 10))
+    session.update(get_summary(url, max_sent, language))
     return redirect(url_for('site.index', _anchor='summary'))
 
 

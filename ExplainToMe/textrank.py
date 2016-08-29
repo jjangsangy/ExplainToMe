@@ -4,7 +4,6 @@ from __future__ import print_function
 import requests
 import six
 from breadability.readable import Article
-from cachecontrol import CacheControl
 from goose import Goose
 from requests import Request, Session
 from requests.adapters import HTTPAdapter
@@ -41,9 +40,10 @@ class HtmlParser(DocumentParser):
     @classmethod
     def from_url(cls, url, tokenizer,
                  useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0'):  # noqa
-        session = CacheControl(Session())
+        session = Session()
         session.mount('http://', HTTPAdapter(max_retries=2))
         session.mount('https://', HTTPAdapter(max_retries=2))
+        print(url)
         request = Request(method='GET',
                           url=url,
                           headers={'User-Agent': useragent},
@@ -130,7 +130,7 @@ def get_parser(url, tokenizer):
     # Goose raises IndexError when requesting unfamiliar sites.
     try:
         extract = article.extract(url=url)
-    except IndexError:
+    except:
         extract = article.extract(raw_html=requests.get(url).text)
 
     goose_parser = PlaintextParser(extract, tokenizer)

@@ -43,4 +43,3 @@ app.jinja_env.filters['datetimefilter'] = datetimefilter
 cors = CORS(app)
 bootstrap = Bootstrap(app)
 heroku = Heroku(app)
-csrfprotect = CsrfProtect(app)

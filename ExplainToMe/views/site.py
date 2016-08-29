@@ -1,4 +1,3 @@
-
 from __future__ import print_function
 
 import json
@@ -49,11 +48,8 @@ def valid_url(raw_url):
         return False
     return validator.validate_hostname(match.group('host'))
 
-@site.route('/summary', methods=['POST'])
-def summary():
-    language = 'english'
-    url = request.form.get('url', '')
-    max_sent = int(request.form.get('max_sent', 10))
+
+def get_summary(url, max_sent, language='english'):
     tokenizer = Tokenizer(language)
     parser, meta = get_parser(url, tokenizer)
     summary = run_summarizer(parser, max_sent, language)

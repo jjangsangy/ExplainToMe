@@ -76,18 +76,18 @@ If you are getting started on OS X, the [Docker toolbox](https://docs.docker.com
 is the first thing to checkout.
 
 ```bash
-$ docker run -it -p 8000:8000 jjangsangy/ExplainToMe:latest
+$ docker run -it -p 5000:5000 jjangsangy/ExplainToMe:latest
 ```
 
-Once the server is running, navigate to either localhost:3000 (on Linux) or
-hostname:30000 (on Mac OS X), where hostname is the IP addresses
+Once the server is running, navigate to either localhost:5000 (on Linux) or
+hostname:5000 (on Mac OS X), where hostname is the IP addresses
 of your virtual machine, obtained using
 
 ```bash
 $ docker-machine ip my-vm-name
 ```
 
-Now access your docker machine ip at port `docker-machine-ip:8000`
+Now access your docker machine ip at port `docker-machine-ip:5000`
 
 # Kitematic
 

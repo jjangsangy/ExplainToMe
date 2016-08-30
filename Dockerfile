@@ -4,6 +4,7 @@ MAINTAINER Sang Han <jjangsangy@gmail.com>
 COPY ./requirements.txt /requirements.txt
 
 RUN apk add --no-cache --virtual .build-deps \
+        git \
         build-base \
         zlib \
         zlib-dev \
@@ -15,7 +16,6 @@ RUN apk add --no-cache --virtual .build-deps \
         python-dev \
         libxml2-dev \
         libxslt-dev \
-        py-pip \
     && CFLAGS="$CFLAGS -L/lib" pip install -r /requirements.txt \
     && find /usr/local \( -type d -a -name test -o -name tests \) \
             -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
@@ -33,5 +33,5 @@ RUN apk add --no-cache --virtual .build-deps \
 ENV INSTALL_PATH /app
 COPY . ${INSTALL_PATH}
 WORKDIR ${INSTALL_PATH}
-EXPOSE 8000
-ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:8000","ExplainToMe.wsgi:app"]
+EXPOSE 5000
+ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:5000","ExplainToMe.wsgi:app"]

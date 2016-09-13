@@ -174,5 +174,3 @@ definitions:
         type: array
         items:
           type: string
-      opengraph:
-        type: object

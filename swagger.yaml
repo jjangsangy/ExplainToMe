@@ -28,9 +28,13 @@ paths:
           required: true
       responses:
         200:
-          description: "Response"
+          description: Response
           schema:
-            $ref: "#/definitions/Summary"
+            $ref: '#/definitions/Summary'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/APIError'
 definitions:
   Article:
     title: Article
@@ -38,20 +42,30 @@ definitions:
     properties:
       url:
         type: string
+        format: url
       max_sent:
         type: integer
         format: int32
+        minimum: 0
+        maximum: 100
+        default: 10
   Summary:
     title: Summary
+    allOf:
+    - $ref: '#/definitions/Article'
+    - type: object
+      properties:
+        meta:
+          type: object
+        summary:
+          type: array
+          items:
+            type: string
+    required:
+      - summary
+      - meta
+  APIError:
+    title: Error
     properties:
-      url:
+      error:
         type: string
-      max_sent:
-        type: integer
-        format: int32
-      meta:
-        type: object
-      summary:
-        type: array
-        items:
-          type: string

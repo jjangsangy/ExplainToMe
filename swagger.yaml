@@ -46,7 +46,9 @@ paths:
       responses:
         200:
           description: Response Summary
-          examples: {
+          examples:
+            application/json: {
+              "url": "https://www.technologyreview.com/s/513696/deep-learning/",
               "max_sent": 10,
               "meta": {
                 "authors": [],
@@ -88,8 +90,7 @@ paths:
                 "A team led by Stanford computer science professor Andrew Ng and Google Fellow Jeff Dean showed the system images from 10 million randomly selected YouTube videos.",
                 "Training the many layers of virtual neurons in the experiment took 16,000 computer processorsathe kind of computing infrastructure that Google has developed for its search engine and other services.",
                 "Though Kurzweila vision is still years from reality, deep learning is likely to spur other applications beyond speech and image recognition in the nearer term."
-              ],
-              "url": "https://www.technologyreview.com/s/513696/deep-learning/"
+              ]
             }
           schema:
             $ref: '#/definitions/Summary'
@@ -102,19 +103,19 @@ definitions:
     title: Article
     description: "Article Summary Details"
     type: object
+    required:
+      - url
     properties:
       url:
         type: string
-        description: Article URL
+        description: Web Article URL
         format: uri
       max_sent:
         description: Maximum number of sentences returned
         type: integer
         format: int32
         minimum: 0
-        exclusiveMinimum: true
         maximum: 100
-        exclusiveMaximum: true
         default: 10
   Summary:
     title: Summary
@@ -125,13 +126,53 @@ definitions:
     - type: object
       properties:
         meta:
-          type: object
+          $ref: '#/definitions/MetaData'
         summary:
           type: array
+          minItems: 0
           items:
-            type: string
+            $ref: '#/definitions/Extract'
+  Extract:
+    title: Extracted sentence
+    description: "Article Sentence"
+    type: string
   APIError:
     title: Error
     properties:
       error:
         type: string
+  MetaData:
+    title: Metadata
+    description: WebPage Metadata
+    type: object
+    properties:
+      authors:
+        type: array
+        items:
+          type: string
+      domain:
+        type: string
+        format: uri
+      tags:
+        type: array
+        items:
+          type: string
+      image:
+        type: array
+        items:
+          type: string
+      title:
+        type: string
+      opengraph:
+        type: object
+      meta:
+        type: object
+      publish_date:
+        type: string
+        format: datetime
+      authors:
+        type: array
+        items:
+          type: string
+      opengraph:
+        type: object

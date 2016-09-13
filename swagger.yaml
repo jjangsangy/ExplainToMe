@@ -46,6 +46,8 @@ paths:
       responses:
         200:
           description: Response Summary
+          schema:
+            $ref: '#/definitions/Summary'
           examples:
             application/json: {
               "url": "https://www.technologyreview.com/s/513696/deep-learning/",
@@ -92,12 +94,20 @@ paths:
                 "Though Kurzweila vision is still years from reality, deep learning is likely to spur other applications beyond speech and image recognition in the nearer term."
               ]
             }
+        404:
+          description: Resource Not Found
           schema:
-            $ref: '#/definitions/Summary'
+            $ref: '#/definitions/Error404'
         default:
           description: Unexpected error
+          examples:
+              application/json: {
+                "type": "error",
+                "status": 404,
+                "code": "not_found",
+            }
           schema:
-            $ref: '#/definitions/APIError'
+            $ref: '#/definitions/Error'
 definitions:
   Article:
     title: Article
@@ -153,11 +163,35 @@ definitions:
     title: Extracted sentence
     description: "Article Sentence"
     type: string
-  APIError:
+  Error:
     title: Error
     properties:
-      error:
-        type: string
+        type:
+          type: string
+        status:
+          type: integer
+          format: int32
+          minimum: 200
+          maximum: 600
+          example: 404
+        code:
+          type: string
+          enum:
+          - bad_request
+            unauthorized
+            forbidden
+            not_found
+            method_not_allowed
+            conflict
+            precondition_failed
+            too_many_requests
+            internal_server_error
+            unavailable
+  Error404:
+    title: Error404
+    type: object
+    allOf:
+    - $ref: '#/definitions/Error'
   MetaData:
     title: Metadata
     description: WebPage Metadata

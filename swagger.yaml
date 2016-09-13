@@ -110,6 +110,7 @@ definitions:
         type: string
         description: Web Article URL
         format: uri
+        example: "https://www.technologyreview.com/s/513696/deep-learning/"
       max_sent:
         description: Maximum number of sentences returned
         type: integer

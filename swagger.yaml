@@ -158,15 +158,39 @@ definitions:
         items:
           type: string
       image:
-        type: array
-        items:
-          type: string
+        $ref: '#/definitions/Image'
       title:
         type: string
       opengraph:
         type: object
       meta:
-        type: object
+        $ref: '#/definitions/MetaMeta'
       publish_date:
         type: string
         format: datetime
+  Image:
+    title: Image
+    description: Extracted image metadata
+    type: object
+    properties:
+      height:
+        type: integer
+        format: int32
+      width:
+        type: integer
+        format: int32
+      type:
+        type: string
+      url:
+        type: string
+        format: uri
+  MetaMeta:
+    title: MetaMeta
+    description: Metadata Metadata
+    properties:
+      canonical:
+        type: string
+        format: uri
+      favicon:
+        type: string
+        format: uri

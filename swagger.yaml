@@ -170,7 +170,3 @@ definitions:
       publish_date:
         type: string
         format: datetime
-      authors:
-        type: array
-        items:
-          type: string

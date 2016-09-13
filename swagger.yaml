@@ -118,6 +118,22 @@ definitions:
         minimum: 0
         maximum: 100
         default: 10
+      lang:
+        description: Article language
+        enum:
+        - en
+          zn-ch
+          zn-tw
+          de
+          pt
+          fr
+          it
+          ja
+          ko
+          es
+        type: string
+        readOnly: true
+        example: en
   Summary:
     title: Summary
     description: "Article Summary and Metadata"
@@ -168,7 +184,7 @@ definitions:
         $ref: '#/definitions/MetaMeta'
       publish_date:
         type: string
-        format: datetime
+        format: date-time
   Image:
     title: Image
     description: Extracted image metadata

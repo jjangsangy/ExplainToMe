@@ -8,6 +8,23 @@ info:
     Run this over your own local instance by modifying `host` key.
 
     Find source code of this API [here](https://github.com/jjangsangy/explaintome)
+  contact:
+    name: Sang Han
+    url: https://angel.co/sanghan
+    email: jjangsangy@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: URL
+    description: URL String
+  - name: Article
+    description: Document
+  - name: Summary
+    description:  Process of reducing a text document that retains original message.
+    externalDocs:
+      description: Wikipedia
+      url: https://en.wikipedia.org/wiki/Automatic_summarization
 host: explaintome.herokuapp.com
 basePath: /api/v1.0
 schemes:
@@ -19,16 +36,61 @@ produces:
 paths:
   /summary:
     post:
+      tags:
+        - Article
       parameters:
-        - name: Article Summary
-          in: body
-          description: Details regarding web article summary
-          schema:
-            $ref: '#/definitions/Article'
-          required: true
+      - name: Request
+        in: body
+        schema:
+          $ref: '#/definitions/Article'
       responses:
         200:
-          description: Response
+          description: Response Summary
+          examples: {
+              "max_sent": 10,
+              "meta": {
+                "authors": [],
+                "domain": "www.technologyreview.com",
+                "image": {
+                  "height": 459,
+                  "type": "image",
+                  "url": "https://d267cvn3rvuq91.cloudfront.net/i/images/building.a.brain_.timelinex519_0.jpg?sw=373",
+                  "width": 373
+                },
+                "meta": {
+                  "canonical": "https://www.technologyreview.com/s/513696/deep-learning/",
+                  "description": "With massive amounts of computational power, machines can now recognize objects and translate speech in real time. Artificial intelligence is finally getting smart.",
+                  "favicon": "",
+                  "keywords": "",
+                  "lang": "en"
+                },
+                "opengraph": {
+                  "description": "With massive amounts of computational power, machines can now recognize objects and translate speech in real time. Artificial intelligence is finally getting smart.",
+                  "image": "392",
+                  "site_name": "MIT Technology Review",
+                  "title": "Is Artificial Intelligence Finally Coming into Its Own?",
+                  "type": "article",
+                  "updated_time": "2016-03-29T11:11:13-04:00",
+                  "url": "https://www.technologyreview.com/s/513696/deep-learning/"
+                },
+                "publish_date": null,
+                "tags": [],
+                "title": "Is Artificial Intelligence Finally Coming into Its Own?"
+              },
+              "summary": [
+                "Kurzweil was attracted not just by Googles computing resources but also by the startling progress the company has made in a branch of AI called deep learning.",
+                "The software learns, in a very real sense, to recognize patterns in digital representations of sounds, images, and other data.",
+                "Last June, a Google deep-learning system that had been shown 10 million images from YouTube videos proved almost twice as good as any previous image recognition effort at identifying objects such as cats.",
+                "Extending deep learning into applications beyond speech and image recognition will require more conceptual and software breakthroughs, not to mention many more advances in processing power.",
+                "Programmers would train a neural network to detect an object or phoneme by blitzing the network with digitized versions of images containing those objects or sound waves containing those phonemes.",
+                "The eventual goal of this training was to get the network to consistently recognize the patterns in speech or sets of images that we humans know as, say, the phoneme da or the image of a dog.",
+                "And complex speech or image recognition required more computer power than was then available.",
+                "A team led by Stanford computer science professor Andrew Ng and Google Fellow Jeff Dean showed the system images from 10 million randomly selected YouTube videos.",
+                "Training the many layers of virtual neurons in the experiment took 16,000 computer processorsathe kind of computing infrastructure that Google has developed for its search engine and other services.",
+                "Though Kurzweila vision is still years from reality, deep learning is likely to spur other applications beyond speech and image recognition in the nearer term."
+              ],
+              "url": "https://www.technologyreview.com/s/513696/deep-learning/"
+            }
           schema:
             $ref: '#/definitions/Summary'
         default:
@@ -38,19 +100,26 @@ paths:
 definitions:
   Article:
     title: Article
+    description: "Article Summary Details"
     type: object
     properties:
       url:
         type: string
-        format: url
+        description: Article URL
+        format: uri
       max_sent:
+        description: Maximum number of sentences returned
         type: integer
         format: int32
         minimum: 0
+        exclusiveMinimum: true
         maximum: 100
+        exclusiveMaximum: true
         default: 10
   Summary:
     title: Summary
+    description: "Article Summary and Metadata"
+    type: object
     allOf:
     - $ref: '#/definitions/Article'
     - type: object
@@ -61,9 +130,6 @@ definitions:
           type: array
           items:
             type: string
-    required:
-      - summary
-      - meta
   APIError:
     title: Error
     properties:

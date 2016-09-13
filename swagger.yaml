@@ -28,9 +28,12 @@ paths:
           required: true
       responses:
         200:
-          description: Response
+          description: "Response"
+          schema:
+            $ref: "#/definitions/Summary"
 definitions:
   Article:
+    title: Article
     type: object
     properties:
       url:
@@ -38,3 +41,17 @@ definitions:
       max_sent:
         type: integer
         format: int32
+  Summary:
+    title: Summary
+    properties:
+      url:
+        type: string
+      max_sent:
+        type: integer
+        format: int32
+      meta:
+        type: object
+      summary:
+        type: array
+        items:
+          type: string

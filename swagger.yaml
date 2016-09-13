@@ -1,0 +1,40 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: ExplainToMe API
+  description: |
+    **This example has a working backend hosted in Heroku**
+
+    Run this over your own local instance by modifying `host` key.
+
+    Find source code of this API [here](https://github.com/jjangsangy/explaintome)
+host: explaintome.herokuapp.com
+basePath: /api/v1.0
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /summary:
+    post:
+      parameters:
+        - name: Article Summary
+          in: body
+          description: Details regarding web article summary
+          schema:
+            $ref: '#/definitions/Article'
+          required: true
+      responses:
+        200:
+          description: Response
+definitions:
+  Article:
+    type: object
+    properties:
+      url:
+        type: string
+      max_sent:
+        type: integer
+        format: int32

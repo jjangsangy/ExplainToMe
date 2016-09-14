@@ -50,5 +50,6 @@ bower_components/
 ExplainToMe/static/css/lib/
 ExplainToMe/static/js/lib/
 instance/**
+src/
 # }}}
 #

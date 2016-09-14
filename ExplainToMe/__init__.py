@@ -7,11 +7,11 @@ import os
 
 from dateutil.parser import parser
 from flask import Flask
-
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 from flask_heroku import Heroku
 from flask_wtf import CsrfProtect
+from mashapeanalytics.middleware import FlaskMiddleware as MashapeAnalytics
 
 from .views.site import site
 
@@ -23,6 +23,14 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
+
+mashape = os.env.get("MASHAPE_GALELEO", '')
+if mashape:
+    app.wsgi_app = MashapeAnalytics(
+        app.wsgi_app,
+        mashape,
+        'default-environment',
+    )
 
 app.register_blueprint(site)
 

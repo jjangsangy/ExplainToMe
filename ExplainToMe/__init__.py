@@ -24,7 +24,7 @@ logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
-mashape = os.env.get("MASHAPE_GALILEO", '')
+mashape = os.getenv("MASHAPE_GALILEO", '')
 if mashape:
     app.wsgi_app = MashapeAnalytics(
         app.wsgi_app,

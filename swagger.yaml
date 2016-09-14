@@ -3,11 +3,23 @@ info:
   version: 1.0.0
   title: ExplainToMe API
   description: |
-    **This example has a working backend hosted in Heroku**
+    [![travis](https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master)](https://travis-ci.org/jjangsangy/ExplainToMe)
+    [![licence](https://img.shields.io/pypi/l/coverage.svg)](https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE)
 
-    Run this over your own local instance by modifying `host` key.
+    ## Automatic Web Article Summarizer
 
-    Find source code of this API [here](https://github.com/jjangsangy/explaintome)
+    ![image](./static/front.jpg)
+
+    [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+    # What is it?
+
+    `Explain To Me` is a automatic text summarizer, that utilizes
+    [TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf),
+    a graph based algorithm to scans through the contents of a website to
+    extract a concise machine generated summary. The methodology is similar
+    to the way search engines return the most relevant web pages from a
+    users search query.
   contact:
     name: Sang Han
     url: https://angel.co/sanghan

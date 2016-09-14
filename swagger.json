@@ -1,0 +1,272 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "ExplainToMe API",
+    "description" : "[![travis](https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master)](https://travis-ci.org/jjangsangy/ExplainToMe)\n[![licence](https://img.shields.io/pypi/l/coverage.svg)](https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE)\n\n## Automatic Web Article Summarizer\n\n![image](https://github.com/jjangsangy/ExplainToMe/raw/master/static/front.jpg)\n\n[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)\n\n# What is it?\n\n`Explain To Me` is a automatic text summarizer, that utilizes\n[TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf),\na graph based algorithm to scans through the contents of a website to\nextract a concise machine generated summary. The methodology is similar\nto the way search engines return the most relevant web pages from a\nusers search query.\n",
+    "contact" : {
+      "name" : "Sang Han",
+      "url" : "https://angel.co/sanghan",
+      "email" : "jjangsangy@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "URL",
+    "description" : "URL String"
+  }, {
+    "name" : "Article",
+    "description" : "Document"
+  }, {
+    "name" : "Summary",
+    "description" : "Process of reducing a text document that retains original message.",
+    "externalDocs" : {
+      "description" : "Wikipedia",
+      "url" : "https://en.wikipedia.org/wiki/Automatic_summarization"
+    }
+  } ],
+  "host" : "explaintome.herokuapp.com",
+  "basePath" : "/api/v1.0",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/summary" : {
+      "post" : {
+        "tags" : [ "Article" ],
+        "parameters" : [ {
+          "name" : "Request",
+          "in" : "body",
+          "schema" : {
+            "$ref" : "#/definitions/Article"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Response Summary",
+            "schema" : {
+              "$ref" : "#/definitions/Summary"
+            },
+            "examples" : {
+              "application/json" : {
+                "url" : "https://www.technologyreview.com/s/513696/deep-learning/",
+                "max_sent" : 10,
+                "meta" : {
+                  "authors" : [ ],
+                  "domain" : "www.technologyreview.com",
+                  "image" : {
+                    "height" : 459,
+                    "type" : "image",
+                    "url" : "https://d267cvn3rvuq91.cloudfront.net/i/images/building.a.brain_.timelinex519_0.jpg?sw=373",
+                    "width" : 373
+                  },
+                  "meta" : {
+                    "canonical" : "https://www.technologyreview.com/s/513696/deep-learning/",
+                    "description" : "With massive amounts of computational power, machines can now recognize objects and translate speech in real time. Artificial intelligence is finally getting smart.",
+                    "favicon" : "",
+                    "keywords" : "",
+                    "lang" : "en"
+                  },
+                  "opengraph" : {
+                    "description" : "With massive amounts of computational power, machines can now recognize objects and translate speech in real time. Artificial intelligence is finally getting smart.",
+                    "image" : "392",
+                    "site_name" : "MIT Technology Review",
+                    "title" : "Is Artificial Intelligence Finally Coming into Its Own?",
+                    "type" : "article",
+                    "updated_time" : "2016-03-29T11:11:13-04:00",
+                    "url" : "https://www.technologyreview.com/s/513696/deep-learning/"
+                  },
+                  "publish_date" : null,
+                  "tags" : [ ],
+                  "title" : "Is Artificial Intelligence Finally Coming into Its Own?"
+                },
+                "summary" : [ "Kurzweil was attracted not just by Googles computing resources but also by the startling progress the company has made in a branch of AI called deep learning.", "The software learns, in a very real sense, to recognize patterns in digital representations of sounds, images, and other data.", "Last June, a Google deep-learning system that had been shown 10 million images from YouTube videos proved almost twice as good as any previous image recognition effort at identifying objects such as cats.", "Extending deep learning into applications beyond speech and image recognition will require more conceptual and software breakthroughs, not to mention many more advances in processing power.", "Programmers would train a neural network to detect an object or phoneme by blitzing the network with digitized versions of images containing those objects or sound waves containing those phonemes.", "The eventual goal of this training was to get the network to consistently recognize the patterns in speech or sets of images that we humans know as, say, the phoneme da or the image of a dog.", "And complex speech or image recognition required more computer power than was then available.", "A team led by Stanford computer science professor Andrew Ng and Google Fellow Jeff Dean showed the system images from 10 million randomly selected YouTube videos.", "Training the many layers of virtual neurons in the experiment took 16,000 computer processorsathe kind of computing infrastructure that Google has developed for its search engine and other services.", "Though Kurzweila vision is still years from reality, deep learning is likely to spur other applications beyond speech and image recognition in the nearer term." ]
+              }
+            }
+          },
+          "404" : {
+            "description" : "Resource Not Found",
+            "schema" : {
+              "$ref" : "#/definitions/Error404"
+            }
+          },
+          "default" : {
+            "description" : "Unexpected error",
+            "examples" : {
+              "application/json" : {
+                "type" : "error",
+                "status" : 404,
+                "code" : "not_found"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Article" : {
+      "title" : "Article",
+      "description" : "Article Summary Details",
+      "type" : "object",
+      "required" : [ "url" ],
+      "properties" : {
+        "url" : {
+          "type" : "string",
+          "description" : "Web Article URL",
+          "format" : "uri",
+          "example" : "https://www.technologyreview.com/s/513696/deep-learning/"
+        },
+        "max_sent" : {
+          "description" : "Maximum number of sentences returned",
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0,
+          "maximum" : 100,
+          "default" : 10
+        },
+        "lang" : {
+          "description" : "Article language",
+          "enum" : [ "en zn-ch zn-tw de pt fr it ja ko es" ],
+          "type" : "string",
+          "readOnly" : true,
+          "example" : "en"
+        }
+      }
+    },
+    "Summary" : {
+      "title" : "Summary",
+      "description" : "Article Summary and Metadata",
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/Article"
+      }, {
+        "type" : "object",
+        "properties" : {
+          "meta" : {
+            "$ref" : "#/definitions/MetaData"
+          },
+          "summary" : {
+            "type" : "array",
+            "minItems" : 0,
+            "items" : {
+              "$ref" : "#/definitions/Extract"
+            }
+          }
+        }
+      } ]
+    },
+    "Extract" : {
+      "title" : "Extracted sentence",
+      "description" : "Article Sentence",
+      "type" : "string"
+    },
+    "Error" : {
+      "title" : "Error",
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 200,
+          "maximum" : 600,
+          "example" : 404
+        },
+        "code" : {
+          "type" : "string",
+          "enum" : [ "bad_request unauthorized forbidden not_found method_not_allowed conflict precondition_failed too_many_requests internal_server_error unavailable" ]
+        }
+      }
+    },
+    "Error404" : {
+      "title" : "Error404",
+      "type" : "object",
+      "allOf" : [ {
+        "$ref" : "#/definitions/Error"
+      } ]
+    },
+    "MetaData" : {
+      "title" : "Metadata",
+      "description" : "WebPage Metadata",
+      "type" : "object",
+      "properties" : {
+        "authors" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "domain" : {
+          "type" : "string",
+          "format" : "uri"
+        },
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "image" : {
+          "$ref" : "#/definitions/Image"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "opengraph" : {
+          "type" : "object"
+        },
+        "meta" : {
+          "$ref" : "#/definitions/MetaMeta"
+        },
+        "publish_date" : {
+          "type" : "string",
+          "format" : "date-time"
+        }
+      }
+    },
+    "Image" : {
+      "title" : "Image",
+      "description" : "Extracted image metadata",
+      "type" : "object",
+      "properties" : {
+        "height" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "width" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "url" : {
+          "type" : "string",
+          "format" : "uri"
+        }
+      }
+    },
+    "MetaMeta" : {
+      "title" : "MetaMeta",
+      "description" : "Metadata Metadata",
+      "properties" : {
+        "canonical" : {
+          "type" : "string",
+          "format" : "uri"
+        },
+        "favicon" : {
+          "type" : "string",
+          "format" : "uri"
+        }
+      }
+    }
+  }
+}

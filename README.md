@@ -2,6 +2,7 @@
 
 [![travis](https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master)](https://travis-ci.org/jjangsangy/ExplainToMe)
 [![licence](https://img.shields.io/pypi/l/coverage.svg)](https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE)
+[![Quay](https://quay.io/repository/jjangsangy/explaintome/status)](https://quay.io/repository/jjangsangy/explaintome)
 
 ## Automatic Web Article Summarizer
 

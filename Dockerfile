@@ -35,3 +35,4 @@ COPY . ${INSTALL_PATH}
 WORKDIR ${INSTALL_PATH}
 EXPOSE 5000
 ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:5000","ExplainToMe.wsgi:app"]
+

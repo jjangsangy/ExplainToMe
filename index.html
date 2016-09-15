@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Explaintome by jjangsangy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Explaintome</h1>
+      <h2 class="project-tagline">Automatic Web Article Summarizer</h2>
+      <a href="https://github.com/jjangsangy/ExplainToMe" class="btn">View on GitHub</a>
+      <a href="https://github.com/jjangsangy/ExplainToMe/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/jjangsangy/ExplainToMe/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="explaintome" class="anchor" href="#explaintome" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ExplainToMe</h1>
+
+<p><a href="https://travis-ci.org/jjangsangy/ExplainToMe"><img src="https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master" alt="travis"></a>
+<a href="https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE"><img src="https://img.shields.io/pypi/l/coverage.svg" alt="licence"></a></p>
+
+<h2>
+<a id="automatic-web-article-summarizer" class="anchor" href="#automatic-web-article-summarizer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Automatic Web Article Summarizer</h2>
+
+<p><img src="./static/front.jpg" alt="image"></p>
+
+<p><a href="https://heroku.com/deploy"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy"></a></p>
+
+<h1>
+<a id="what-is-it" class="anchor" href="#what-is-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is it?</h1>
+
+<p><code>Explain To Me</code> is a automatic text summarizer, that utilizes
+<a href="http://web.eecs.umich.edu/%7Emihalcea/papers/mihalcea.emnlp04.pdf">TextRank</a>,
+a graph based algorithm to scans through the contents of a website to
+extract a concise machine generated summary. The methodology is similar
+to the way search engines return the most relevant web pages from a
+users search query.</p>
+
+<h1>
+<a id="support" class="anchor" href="#support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support</h1>
+
+<p>Here’s a list of Python platforms that are officially supported.</p>
+
+<ul>
+<li>Python 2.7</li>
+<li>Python 3.4</li>
+<li>Python 3.5</li>
+<li>pypy 2.5.0 -&gt; 2.7.9</li>
+</ul>
+
+<h1>
+<a id="quickstart" class="anchor" href="#quickstart" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quickstart</h1>
+
+<h1>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h1>
+
+<h2>
+<a id="clone-repository" class="anchor" href="#clone-repository" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Clone Repository</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ git clone https://github.com/jjangsangy/ExplainToMe.git</pre></div>
+
+<h2>
+<a id="create-a-virtualenv" class="anchor" href="#create-a-virtualenv" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a virtualenv</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ virtualenv -p python venv</pre></div>
+
+<h2>
+<a id="source-virtualenv" class="anchor" href="#source-virtualenv" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Source Virtualenv</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">source</span> venv/bin/activate</pre></div>
+
+<h2>
+<a id="install-python-dependencies" class="anchor" href="#install-python-dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install Python Dependencies</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ pip install --upgrade pip setuptools wheel
+$ pip install -r requirements.txt</pre></div>
+
+<h2>
+<a id="run-server" class="anchor" href="#run-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run Server</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ python manage.py runserver
+Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</pre></div>
+
+<p>Now go to your browser and point it towards <code>http://127.0.0.1:5000</code></p>
+
+<h1>
+<a id="docker" class="anchor" href="#docker" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Docker</h1>
+
+<p>Running ExplainToMe via the <a href="https://hub.docker.com/r/jjangsangy/explaintome/">official Docker image</a>
+is an easy way to start a server if you don't want to install python.</p>
+
+<p>We assume here you have already installed Docker for your system.</p>
+
+<p>If you are getting started on OS X, the <a href="https://docs.docker.com/engine/installation/mac/">Docker toolbox</a>
+is the first thing to checkout.</p>
+
+<div class="highlight highlight-source-shell"><pre>$ docker run -it -p 5000:5000 jjangsangy/ExplainToMe:latest</pre></div>
+
+<p>Once the server is running, navigate to either localhost:5000 (on Linux) or
+hostname:5000 (on Mac OS X), where hostname is the IP addresses
+of your virtual machine, obtained using</p>
+
+<div class="highlight highlight-source-shell"><pre>$ docker-machine ip my-vm-name</pre></div>
+
+<p>Now access your docker machine ip at port <code>docker-machine-ip:5000</code></p>
+
+<h1>
+<a id="kitematic" class="anchor" href="#kitematic" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Kitematic</h1>
+
+<p>You might also want to try <a href="https://kitematic.com/">Kitematic</a> on OS X which provides a GUI for running Docker images.
+Running ExplainToMe through Kitematic is easy, just search for the
+<code>jjangsangy/ExplainToMe</code> image, start it, and you should see it running</p>
+
+<p><img src="static/kitematic.jpg" alt="kitematic"></p>
+
+<h1>
+<a id="things-to-look-forward-to" class="anchor" href="#things-to-look-forward-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things to look forward to:</h1>
+
+<ul>
+<li>  Summaries of documents in other languages than English!</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jjangsangy/ExplainToMe">Explaintome</a> is maintained by <a href="https://github.com/jjangsangy">jjangsangy</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>

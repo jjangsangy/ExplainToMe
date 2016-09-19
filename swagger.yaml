@@ -5,16 +5,12 @@ info:
   description: |
     [![travis](https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master)](https://travis-ci.org/jjangsangy/ExplainToMe)
     [![licence](https://img.shields.io/pypi/l/coverage.svg)](https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE)
-
-    ## Automatic Web Article Summarizer
-
-    ![image](./static/front.jpg)
-
     [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-    # What is it?
+    What is it?
+    ===========
 
-    `Explain To Me` is a automatic text summarizer, that utilizes
+    `ExplainToMe` is a automatic text summarizer, that utilizes
     [TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf),
     a graph based algorithm to scans through the contents of a website to
     extract a concise machine generated summary. The methodology is similar

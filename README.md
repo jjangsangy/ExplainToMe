@@ -6,7 +6,7 @@
 
 ## Automatic Web Article Summarizer
 
-![image](./static/front.jpg)
+![Front](https://github.com/jjangsangy/ExplainToMe/raw/master/static/front.jpg)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -96,9 +96,13 @@ You might also want to try [Kitematic](https://kitematic.com/) on OS X which pro
 Running ExplainToMe through Kitematic is easy, just search for the
 `jjangsangy/ExplainToMe` image, start it, and you should see it running
 
-![kitematic](static/kitematic.jpg)
+![kitematic](https://github.com/jjangsangy/ExplainToMe/raw/master/static/kitematic.jpg)
 
 
 # Things to look forward to:
 
 -   Summaries of documents in other languages than English!
+
+# ExplainToMe API
+
+Check out our [Swagger API Documentation](https://swaggerhub.com/api/jjangsangy/ExplainToMe)

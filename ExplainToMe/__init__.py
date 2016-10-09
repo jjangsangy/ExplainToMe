@@ -11,7 +11,6 @@ from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 from flask_heroku import Heroku
 from flask_wtf import CsrfProtect
-from mashapeanalytics.middleware import FlaskMiddleware as MashapeAnalytics
 
 from .views.site import site
 
@@ -24,13 +23,6 @@ logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
-mashape = os.getenv("MASHAPE_GALILEO", '')
-if mashape:
-    app.wsgi_app = MashapeAnalytics(
-        app.wsgi_app,
-        mashape,
-        'default-environment',
-    )
 
 app.register_blueprint(site)
 

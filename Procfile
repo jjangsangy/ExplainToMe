@@ -1,2 +1,2 @@
-web: gunicorn --log-level DEBUG ExplainToMe.wsgi:app
+web: gunicorn ExplainToMe.wsgi:app
 

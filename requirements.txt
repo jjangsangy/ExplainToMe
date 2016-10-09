@@ -13,4 +13,3 @@ futures
 python-dateutil
 sumy
 CacheControl
-mashape-analytics

@@ -43,10 +43,8 @@ class HtmlParser(DocumentParser):
         session = Session()
         session.mount('http://', HTTPAdapter(max_retries=2))
         session.mount('https://', HTTPAdapter(max_retries=2))
-        print(url)
         request = Request(method='GET',
                           url=url,
-                          headers={'User-Agent': useragent},
                           cookies=RequestsCookieJar())
         prepare = session.prepare_request(request)
         response = session.send(prepare, verify=True)
@@ -124,7 +122,7 @@ def get_parser(url, tokenizer):
         "Chrome/52.0.2743.116 Safari/537.36"])
 
     # Scrape Web Page With HTMLParser and Goose and select the best scrape
-    html_parser = HtmlParser.from_url(url, tokenizer, useragent=useragent)
+    html_parser = HtmlParser.from_url(url, tokenizer)
     article = Goose({'browser_user_agent': useragent})
 
     # Goose raises IndexError when requesting unfamiliar sites.

@@ -94,10 +94,10 @@ def api():
     return jsonify(**session_data)
 
 
-@site.route('/summary', methods=['POST'])
+@site.route('/summary', methods=['GET', 'POST'])
 def summary():
     language = 'english'
-    url = request.form.get('url', '')
+    url = request.form.get('url', session.get('q'))
     max_sent = int(request.form.get('max_sent', 10))
     session.update(get_summary(url, max_sent, language))
     return redirect(url_for('site.index', _anchor='summary'))
@@ -105,6 +105,10 @@ def summary():
 
 @site.route('/', methods=['GET', 'POST'])
 def index():
+    q = request.args.get('q')
+    if q and valid_url(q):
+        session['q'] = q
+        return redirect(url_for('site.summary'))
     return render_template('index.html',
                            url=session.get('url'),
                            meta=session.get('meta'),

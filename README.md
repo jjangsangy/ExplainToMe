@@ -28,6 +28,8 @@ Here’s a list of Python platforms that are officially supported.
 * Python 3.5
 * pypy 2.5.0 -> 2.7.9
 
+> We are working on Python 3.6
+
 # Quickstart
 
 # Install

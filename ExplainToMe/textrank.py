@@ -40,14 +40,13 @@ class HtmlParser(DocumentParser):
     @classmethod
     def from_url(cls, url, tokenizer,
                  useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0'):  # noqa
-        session = Session()
-        session.mount('http://', HTTPAdapter(max_retries=2))
-        session.mount('https://', HTTPAdapter(max_retries=2))
-        request = Request(method='GET',
-                          url=url,
-                          cookies=RequestsCookieJar())
-        prepare = session.prepare_request(request)
-        response = session.send(prepare, verify=True)
+        response = requests.get(url=url,
+            headers={
+                'Accept-Encoding': 'identity, deflate, compress, gzip',
+                'Accept': '*/*',
+                'User-Agent': useragent
+            }
+        )
         return cls(response.text, tokenizer, url)
 
     def __init__(self, html_content, tokenizer, url=None):

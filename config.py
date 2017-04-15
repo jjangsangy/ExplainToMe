@@ -17,3 +17,4 @@ class ProductionConfig(BaseConfig):
 class DevelopmentConfig(BaseConfig):
     DEVELOPMENT = True
     DEBUG = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = False

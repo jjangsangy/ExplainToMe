@@ -97,7 +97,8 @@ def api():
 @site.route('/summary', methods=['GET', 'POST'])
 def summary():
     language = 'english'
-    url = request.form.get('url', session.get('q'))
+    q = session.get('q', 'https://www.technologyreview.com/s/603501/10-breakthrough-technologies-2017-reinforcement-learning/')
+    url = request.form.get('url', q)
     max_sent = int(request.form.get('max_sent', 10))
     session.update(get_summary(url, max_sent, language))
     return redirect(url_for('site.index', _anchor='summary'))

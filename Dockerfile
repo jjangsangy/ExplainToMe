@@ -4,19 +4,18 @@ MAINTAINER Sang Han <jjangsangy@gmail.com>
 COPY ./requirements.txt /requirements.txt
 
 RUN apk add --no-cache --virtual .build-deps \
-        git \
         build-base \
-        zlib \
-        zlib-dev \
         curl \
-        jpeg \
+        git \
         jpeg-dev \
-        libpng \
+        libffi-dev \
         libpng-dev \
-        python-dev \
+        libuv-dev \
         libxml2-dev \
         libxslt-dev \
-    && CFLAGS="$CFLAGS -L/lib" pip install -r /requirements.txt \
+        python-dev \
+        zlib-dev \
+    && LDFLAGS="$LDFLAGS -L/lib" pip install -r /requirements.txt \
     && find /usr/local \( -type d -a -name test -o -name tests \) \
             -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
             -exec rm -rf '{}' + \
@@ -27,7 +26,7 @@ RUN apk add --no-cache --virtual .build-deps \
                 | sort -u)" \
     && apk add --virtual .rundeps $runDeps \
     && apk del .build-deps \
-    && python -m nltk.downloader punkt \
+    && python -c 'import nltk; print("nltk version: %s" % nltk.__version__); nltk.download("punkt")' \
     && rm -rf /root/.cache
 
 ENV INSTALL_PATH /app
@@ -35,4 +34,3 @@ COPY . ${INSTALL_PATH}
 WORKDIR ${INSTALL_PATH}
 EXPOSE 5000
 ENTRYPOINT ["gunicorn", "-b", "0.0.0.0:5000","ExplainToMe.wsgi:app"]
-

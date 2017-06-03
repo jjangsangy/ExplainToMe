@@ -14,6 +14,7 @@ from sumy.parsers.parser import DocumentParser
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.utils import cached_property, get_stop_words
+from itertools import chain
 
 if six.PY2:
     str = unicode
@@ -39,13 +40,15 @@ class HtmlParser(DocumentParser):
 
     @classmethod
     def from_url(cls, url, tokenizer,
-                 useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0'):  # noqa
+                 useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:41.0) Gecko/20100101 Firefox/41.0',  # noqa
+                 **kwargs):
+        headers = {
+            'Accept-Encoding': 'identity, deflate, compress, gzip',
+            'Accept': '*/*',
+            'User-Agent': useragent,
+        }
         response = requests.get(url=url,
-            headers={
-                'Accept-Encoding': 'identity, deflate, compress, gzip',
-                'Accept': '*/*',
-                'User-Agent': useragent
-            }
+            headers=dict(chain(headers.items(), kwargs.items()))
         )
         return cls(response.text, tokenizer, url)
 
@@ -120,8 +123,13 @@ def get_parser(url, tokenizer):
         "AppleWebKit/537.36 (KHTML, like Gecko)",
         "Chrome/52.0.2743.116 Safari/537.36"])
 
+    twitter_bypass = ['wsj.com']
+    extra_headers = {}
+
+    if any(i for i in twitter_bypass if i in url):
+        extra_headers['Referer'] = r'https://t.co/T1323aaaa'
     # Scrape Web Page With HTMLParser and Goose and select the best scrape
-    html_parser = HtmlParser.from_url(url, tokenizer)
+    html_parser = HtmlParser.from_url(url, tokenizer, **extra_headers)
     article = Goose({'browser_user_agent': useragent})
 
     # Goose raises IndexError when requesting unfamiliar sites.

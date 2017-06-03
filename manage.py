@@ -1,5 +1,3 @@
-import pprint
-
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_script import Manager
 

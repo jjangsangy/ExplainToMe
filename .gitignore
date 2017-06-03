@@ -51,5 +51,8 @@ ExplainToMe/static/css/lib/
 ExplainToMe/static/js/lib/
 instance/**
 src/
+*.ipynb
+.ipynb_checkpoints/
+wsj.txt
 # }}}
 #

@@ -1,0 +1,178 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "cfc847fbbcfb74d650c6700d4adb54b62c7441bf0e7892da8d736f106b975184"
+        },
+        "requires": {},
+        "sources": [
+            {
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "appnope": {
+            "version": "==0.1.0"
+        },
+        "blinker": {
+            "version": "==1.4"
+        },
+        "breadability": {
+            "version": "==0.1.20"
+        },
+        "certifi": {
+            "version": "==2017.4.17"
+        },
+        "chardet": {
+            "version": "==3.0.4"
+        },
+        "click": {
+            "version": "==6.7"
+        },
+        "decorator": {
+            "version": "==4.0.11"
+        },
+        "docopt": {
+            "version": "==0.6.2"
+        },
+        "dominate": {
+            "version": "==2.3.1"
+        },
+        "flask": {
+            "version": "==0.12.2"
+        },
+        "flask-appconfig": {
+            "version": "==0.11.1"
+        },
+        "flask-assets": {
+            "version": "==0.11"
+        },
+        "flask-bootstrap": {
+            "version": "==3.3.7.1"
+        },
+        "flask-cors": {
+            "version": "==2.1.2"
+        },
+        "flask-debug": {
+            "version": "==0.4.3"
+        },
+        "flask-debugtoolbar": {
+            "version": "==0.10.1"
+        },
+        "flask-heroku": {
+            "version": "==0.1.9"
+        },
+        "flask-script": {
+            "version": "==2.0.5"
+        },
+        "flask-wtf": {
+            "version": "==0.14.2"
+        },
+        "futures": {
+            "version": "==3.1.1"
+        },
+        "gevent": {
+            "version": "==1.2.2"
+        },
+        "goose-extractor": {
+            "editable": true,
+            "git": "https://github.com/jjangsangy/python-goose.git",
+            "ref": "develop"
+        },
+        "greenlet": {
+            "version": "==0.4.12"
+        },
+        "gunicorn": {
+            "version": "==19.7.1"
+        },
+        "idna": {
+            "version": "==2.5"
+        },
+        "inflection": {
+            "version": "==0.3.1"
+        },
+        "ipdb": {
+            "version": "==0.10.3"
+        },
+        "ipython": {
+            "version": "==5.3.0"
+        },
+        "ipython-genutils": {
+            "version": "==0.2.0"
+        },
+        "itsdangerous": {
+            "version": "==0.24"
+        },
+        "jedi": {
+            "version": "==0.10.2"
+        },
+        "jinja2": {
+            "version": "==2.9.6"
+        },
+        "lxml": {
+            "version": "==3.8.0"
+        },
+        "markupsafe": {
+            "version": "==1.0"
+        },
+        "nltk": {
+            "version": "==3.2.2"
+        },
+        "pexpect": {
+            "version": "==4.2.1"
+        },
+        "pickleshare": {
+            "version": "==0.7.4"
+        },
+        "prompt-toolkit": {
+            "version": "==1.0.14"
+        },
+        "ptyprocess": {
+            "version": "==0.5.1"
+        },
+        "pygments": {
+            "version": "==2.2.0"
+        },
+        "python-dateutil": {
+            "version": "==2.6.0"
+        },
+        "requests": {
+            "version": "==2.17.3"
+        },
+        "setuptools": {
+            "version": "==36.0.1"
+        },
+        "simplegeneric": {
+            "version": "==0.8.1"
+        },
+        "six": {
+            "version": "==1.10.0"
+        },
+        "sumy": {
+            "version": "==0.6.0"
+        },
+        "traitlets": {
+            "version": "==4.3.2"
+        },
+        "urllib3": {
+            "version": "==1.21.1"
+        },
+        "visitor": {
+            "version": "==0.1.3"
+        },
+        "wcwidth": {
+            "version": "==0.1.7"
+        },
+        "webassets": {
+            "version": "==0.12.1"
+        },
+        "werkzeug": {
+            "version": "==0.12.2"
+        },
+        "wtforms": {
+            "version": "==2.1"
+        }
+    },
+    "develop": {}
+}

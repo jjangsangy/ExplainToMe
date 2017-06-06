@@ -1,161 +1,91 @@
+{% extends "bootstrap/base.html" %}
+
 {% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/google.html" as google %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Sang Han" />
-    <meta name="description" content="Website Article Summarizer" />
-    <meta name="robots" content="index,nofollow" />
-    <meta property="fb:app_id" content="1281440855213573" />
-    <meta property="og:title" content="ExplainToMe" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="Automatic Web Article Summarizer" />
-    <meta property="og:image" content="https://raw.githubusercontent.com/jjangsangy/ExplainToMe/master/static/front.jpg" />
-    <meta property="og:url" content="{{ request.url }}" />
-    <title>{% block title %}ExplainToMe - Automatic Web Article Summarizer{% endblock %}</title>
-    {% block favicon %}
-        <link type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+{% block head %}
+
+    {% block meta %}
+        {% include "includes/meta.html" %}
     {% endblock %}
-    <link
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel=stylesheet />
-    <link href="{{ url_for('static', filename='css/animation.css') }}" rel=stylesheet />
+
+
+    <title>
+        {% block title %}ExplainToMe - Automatic Web Article Summarizer{% endblock title %}
+    </title>
+
+
+    {% block favicon %}
+        <link type="image/x-icon" rel="icon" href="/favicon.ico" />
+    {% endblock favicon %}
+
+    {% block styles %}
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="https://bootswatch.com/readable/bootstrap.min.css" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel=stylesheet />
+        <link href="{{ url_for('static', filename='css/animation.css') }}" rel=stylesheet />
+    {% endblock styles %}
+
     {{ fixes.ie8() }}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    {{ google.uanalytics('UA-51412306-6') }}
 
-      ga('create', 'UA-51412306-6', 'auto');
-      ga('send', 'pageview');
-
-    </script>
+{% endblock %}
 </head>
+
 <body>
+{% block body %}
 
-<!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-<div class="container topnav">
-<div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand topnav" href="{{ url_for('site.index') }}">
-    <i class="fa fa-connectdevelop" aria-hidden="true"></i>
-        Home
-    </a>
-</div>
-<!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="#run">Run</a></li>
-        <li><a href="#summary">Summary</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
-</div> <!-- /.navbar-collapse -->
-</div> <!-- /.container -->
-</nav>
+{% block navbar %}
+{% include 'includes/nav.html' %}
+{% endblock %}
 
-
-<a name="run"></a>
+<a id="run" name="run"></a>
 <div class="intro-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg">
-        <div class="intro-message">
-          <h1>ExplainToMe</h1>
-          <h3>Automatic Web Article Summarizer</h3>
-          <hr class="intro-divider">
-          {% block content %}
-          {% endblock %}
+    <div class="container">
+        <div class="row">
+            {% block run %}{% endblock run %}
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
-<a name="summary"></a>
+<a id="summary" name="summary"></a>
 <div class="content-section-a">
     <div class="container">
         <div class="row">
-            {% block summary %}
-            {% endblock %}
+            {% block summary %}{% endblock summary %}
+        </div>
+    </div>
+</div>
+
+<a id="about" name="about"></a>
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            {% block about %}{% endblock about %}
         </div>
     </div>
 </div>
 
 
-<a name="about"></a>
-{% include 'about.html' %}
+<a id="contact" name="contact">
+<div class="content-section-b">
+    <div class="container">
+        <div class="row">
+            {% block contact %}{% endblock contact %}
+        </div>
+    </div>
+</div>
 
-<h1 id="fb-welcome"></h1>
+{% include 'includes/footer.html' %}
 
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/site.js') }}"></script>
+{% endblock scripts %}
 
-{% include 'footer.html' %}
-
-<!-- Javascript -->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script
-    type="text/javascript"
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/site.js') }}"></script>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '1281440855213573',
-      xfbml      : true,
-      version    : 'v2.7'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-<script>
-// Place following code after FB.init call.
-
-function onLogin(response) {
-  if (response.status == 'connected') {
-    FB.api('/me?fields=first_name', function(data) {
-      var welcomeBlock = document.getElementById('fb-welcome');
-      welcomeBlock.innerHTML = 'Hello, ' + data.first_name + '!';
-    });
-  }
-}
-
-FB.getLoginStatus(function(response) {
-  // Check login status on load, and if the user is
-  // already logged in, go directly to the welcome message.
-  if (response.status == 'connected') {
-    onLogin(response);
-  } else {
-    // Otherwise, show Login dialog first.
-    FB.login(function(response) {
-      onLogin(response);
-    }, {scope: 'user_friends, email'});
-  }
-});
-</script>
+{% endblock body %}
 </body>
-
 </html>

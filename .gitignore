@@ -49,6 +49,7 @@ venv/
 bower_components/
 ExplainToMe/static/css/lib/
 ExplainToMe/static/js/lib/
+*.egg-info
 instance/**
 src/
 *.ipynb

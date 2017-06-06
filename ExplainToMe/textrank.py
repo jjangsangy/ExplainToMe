@@ -5,9 +5,6 @@ import requests
 import six
 from breadability.readable import Article
 from goose import Goose
-from requests import Request, Session
-from requests.adapters import HTTPAdapter
-from requests.cookies import RequestsCookieJar
 from sumy.models.dom import ObjectDocumentModel, Paragraph, Sentence
 from sumy.nlp.stemmers import Stemmer
 from sumy.parsers.parser import DocumentParser
@@ -17,7 +14,7 @@ from sumy.utils import cached_property, get_stop_words
 from itertools import chain
 
 if six.PY2:
-    str = unicode
+    str = six.text_type
 
 
 class HtmlParser(DocumentParser):

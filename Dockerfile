@@ -1,4 +1,4 @@
-FROM python:2.7-alpine
+FROM python:3.6-alpine
 MAINTAINER Sang Han <jjangsangy@gmail.com>
 
 COPY ./requirements.txt /requirements.txt
@@ -13,7 +13,7 @@ RUN apk add --no-cache --virtual .build-deps \
         libuv-dev \
         libxml2-dev \
         libxslt-dev \
-        python-dev \
+        python3-dev \
         zlib-dev \
     && LDFLAGS="$LDFLAGS -L/lib" pip install -r /requirements.txt \
     && find /usr/local \( -type d -a -name test -o -name tests \) \

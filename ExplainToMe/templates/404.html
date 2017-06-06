@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Uh Oh! 404{% endblock title %}
+
+{% block content %}
+<h1>Oops!</h1>
+<h1>404 Not Found</h1>
+
+<div class="error-template">
+  <div class="error-details">
+      <h3>Sorry, an error has occured, Requested page not found!</h3>
+  </div>
+  <hr class="intro-divider">
+
+  <div class="error-actions">
+    <a class="btn btn-primary" href="{{ url_for('root.index') }}">
+    <i class="fa fa-connectdevelop" aria-hidden="true"></i>
+        Take Me Home
+    </a>
+  </div>
+</div>
+{% endblock content %}

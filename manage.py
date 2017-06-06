@@ -1,13 +1,14 @@
-from flask_debugtoolbar import DebugToolbarExtension
-from flask_script import Manager
+import os
 
-from ExplainToMe import app
+from flask_script import Manager, Server
+from ExplainToMe import create_app
 
-app.debug = True
+app = create_app()
+manager = Manager(app=app, disable_argcomplete=False)
+
+server = Server(host=os.getenv('HOST', '127.0.0.1'), port=os.getenv('PORT', 5000))
+manager.add_command('runserver', server)
 
 
-manager = Manager(app)
-toolbar = DebugToolbarExtension(app)
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     manager.run()

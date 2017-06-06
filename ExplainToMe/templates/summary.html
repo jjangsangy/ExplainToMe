@@ -1,0 +1,9 @@
+{% extends "index.html" %}
+
+{% block title %}
+{% if session.get('meta') %}
+    {% if meta.title %} {{ meta.title }} {% else %} {{ super() }} {% endif %}
+{% else %}
+    {{ super() }}
+{% endif %}
+{% endblock title %}

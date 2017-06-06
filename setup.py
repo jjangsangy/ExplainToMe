@@ -9,15 +9,14 @@ Automatic Web Article Summarizer
 
 from setuptools import setup
 
-from version import __version__ as version
+from ExplainToMe import __version__ as version
 
 setup(
     name='ExplainToMe',
     description='Automatic Web Article Summarizer',
     long_description='\n'.join(
         [
-            open('README.rst', 'rb').read().decode('utf-8'),
-            open('HISTORY.rst', 'rb').read().decode('utf-8'),
+            open('README.md', 'rb').read().decode('utf-8'),
         ]
     ),
     author='Sang Han',
@@ -29,11 +28,6 @@ setup(
     version=version,
     install_requires=['requests', 'sumy'],
     zip_safe=False,
-    entry_points={
-        'console_scripts': [
-            'explain = ExplainToMe.__main__:main'
-        ],
-    },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',

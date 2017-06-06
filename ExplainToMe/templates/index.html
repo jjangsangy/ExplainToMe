@@ -1,69 +1,46 @@
 {% extends "base.html" %}
+{% from "_form.html" import render_field %}
 
-{% block title %}
-{% if url %}
-    {% if meta['title'] %} {{ meta['title'] }} {% else %} {{ super() }} {% endif %}
-{% else %}
-    {{ super() }}
-{% endif %}
-{% endblock %}
+{% block run %}
+<div class="col-lg">
+    <div class="intro-message">
+        <h1>ExplainToMe</h1>
+        <h3>Automatic Web Article Summarizer</h3>
+        <hr class="intro-divider" />
 
-{% block favicon %}
-    {% if url %}
-        {% if meta['meta']['favicon'] %}
-            <link type="image/x-icon" href="{{ meta['meta']['favicon'] }}" rel="icon">
-        {% else %}
-            {{ super() }}
-        {% endif %}
-    {% else %}
-        {{ super() }}
-    {% endif %}
-{% endblock %}
+        {% include "includes/loader.html" %}
 
-{% block content %}
-<div id="loader" class="cssload-square" hidden>
-    <div class="cssload-square-part cssload-square-green"></div>
-    <div class="cssload-square-part cssload-square-pink"></div>
-    <div class="cssload-square-blend"></div>
+        <form id="input-form" role="form" class="form-inline" action="{{ url_for('root.index', _anchor='summary') }}" method="post" animated>
+
+            {{ form.hidden_tag() }}
+            {{ render_field(form.url, required=true) }}
+            {{ render_field(form.max_sent, required=true) }}
+            <div class="form-group">
+                <button id="send" type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-send"></span> Send
+                </button>
+            </div>
+
+        </form>
+    </div>
 </div>
-<form id="input-form" role="form" class="form-inline" action="/summary" method="POST">
-    {{ form.csrf_token }}
-    <div class="form-group">
-        {{ form.url.label }}
-        {{ form.url() }}
-    </div>
-    <div class="form-group">
-        {{ form.max_sent.label }}
-        {{ form.max_sent() }}
-    </div>
-    <div class="form-group">
-        <button id="send" type="submit" class="btn btn-success">
-            <span class="glyphicon glyphicon-send"></span>
-            Send
-        </button>
-    </div>
-</form>
-{% endblock %}
+{% endblock run %}
 
 {% block summary %}
-{% if url %}
-
-<!-- Right Block -->
+{% if session.get('summary') %}
 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
     <hr class="section-heading-spacer">
     <div class="clearfix"></div>
     <h3 class="section-heading">
 
     <!-- Heading -->
-    <a href="{{ url }}">
-        {% if meta['title'] %} {{ meta['title'] }} {% else %} Summary {% endif %}
-    </a>
+    <a href="{{ url }}">{{ meta.title|default('Summary') }}</a>
     </h3>
 
     <!-- Description -->
     <h3>Description</h3>
-    {% if meta['meta']['description'] %}
-        <strong><p>{{ meta['meta']['description'] }}</p></strong>
+    {% if meta['description'] %}
+        <strong><p>{{ meta['description'] }}</p></strong>
     {% endif %}
 
     <!-- Summary Content -->
@@ -71,7 +48,6 @@
     {% for line in summary %}
         <p class="lead">{{ line }}<p>
     {% endfor %}
-
 </div>
 
 <!-- Left Block -->
@@ -80,11 +56,11 @@
     <div class="clearfix"></div>
 
     <!-- Article Image -->
-    {% if meta['image']['url'] %}
+    {% if meta['url'] %}
     <h3>Article Image</h3>
     <div class="row">
         <a href="{{ url }}">
-            <img src="{{ meta['image']['url'] }}" class="img-thumbnail">
+            <img src="{{ meta['url'] }}" class="img-thumbnail">
         </a>
     </div>
     {% endif %}
@@ -135,6 +111,50 @@
     </div>
     {% endif %}
 </div> <!-- /Left Block -->
-
 {% endif %}
-{% endblock %}
+{% endblock summary %}
+
+{% block about %}
+<div class="col-md-2">
+    <h2 class="text-left">TextRank</h2>
+</div>
+<div class="col-md-10">
+    <p>
+        ExplainToMe is a automatic text summarizer that utilizes TextRank,
+        a graph based ranking model for text processing and article summarization.
+    </p>
+    <p>
+        TextRank relies on the semantic relationships between words and phrases
+        to decide relative importance of a sentence within a document.
+    </p>
+    <p>
+        The methodology is in likeness to the way search engines generate
+        relevant web pages from a users search query.
+    </p>
+</div>
+{% endblock about %}
+
+{% block contact %}
+<ul class="list-inline banner-social-buttons">
+  <li>
+    <a href="https://facebook.com/1281440855213573" class="btn btn-default btn-lg">
+    <i class="fa fa-facebook fa-fw"></i>
+    <span class="network-name">Facebook</span></a>
+  </li>
+  <li>
+    <a href="https://twitter.com/jjangsangy" class="btn btn-default btn-lg">
+    <i class="fa fa-twitter fa-fw"></i>
+    <span class="network-name">Twitter</span></a>
+  </li>
+  <li>
+    <a href="https://github.com/jjangsangy/ExplainToMe" class="btn btn-default btn-lg">
+    <i class="fa fa-github fa-fw"></i>
+    <span class="network-name">Github</span></a>
+  </li>
+  <li>
+    <a href="https://angel.co/sanghan" class="btn btn-default btn-lg">
+    <i class="fa fa-angellist fa-fw"></i>
+    <span class="network-name">Angel List</span></a>
+  </li>
+</ul>
+{% endblock contact %}

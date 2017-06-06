@@ -1,0 +1,43 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+<div class="container topnav">
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li>
+            <button type="button" class="btn btn-default navbar-btn">
+                <a href="{{ url_for('root.index') }}">
+                <i class="fa fa-connectdevelop" aria-hidden="true"></i>Home</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-center">
+        <li class="dropdown">
+            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                Info
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="https://github.com/jjangsangy/ExplainToMe">Code</a></li>
+                <li><a href="https://sanghan.xyz">About Author</a></li>
+                <li><a href="https://www.producthunt.com/posts/explaintome">Featured on ProductHunt</a></li>
+                <li><a href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf">Read Textrank Paper</a></li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#run">Run</a></li>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div> <!-- /.navbar-collapse -->
+</div> <!-- /.container -->
+</nav>

@@ -7,6 +7,7 @@ Flask-Heroku==0.1.9
 Flask-Script==2.0.5
 Flask-WTF==0.14.2
 futures==3.1.1
+chainmap==1.0.2
 ipython>=5.3.0,<6.0.0
 nltk==3.2.2
 python-dateutil==2.6.0
@@ -14,6 +15,7 @@ sumy==0.6.0
 requests==2.17.3
 Flask-AppConfig==0.11.1
 Flask-Debug==0.4.3
+Flask-SSLify==0.1.5
 gunicorn
 ipdb
 gevent

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cfc847fbbcfb74d650c6700d4adb54b62c7441bf0e7892da8d736f106b975184"
+            "sha256": "b4d12b5af6c5ed4153e19029d3f3d8b6be0507b6243c627cc59d8b99f722fac4"
         },
         "requires": {},
         "sources": [
@@ -23,6 +23,9 @@
         },
         "certifi": {
             "version": "==2017.4.17"
+        },
+        "chainmap": {
+            "version": "==1.0.2"
         },
         "chardet": {
             "version": "==3.0.4"
@@ -66,6 +69,9 @@
         "flask-script": {
             "version": "==2.0.5"
         },
+        "flask-sslify": {
+            "version": "==0.1.5"
+        },
         "flask-wtf": {
             "version": "==0.14.2"
         },
@@ -96,7 +102,7 @@
             "version": "==0.10.3"
         },
         "ipython": {
-            "version": "==5.3.0"
+            "version": "==6.1.0"
         },
         "ipython-genutils": {
             "version": "==0.2.0"
@@ -129,7 +135,7 @@
             "version": "==1.0.14"
         },
         "ptyprocess": {
-            "version": "==0.5.1"
+            "version": "==0.5.2"
         },
         "pygments": {
             "version": "==2.2.0"

@@ -8,12 +8,14 @@ from flask_appconfig import AppConfig
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_wtf import CSRFProtect
 from flask_heroku import Heroku
+from flask_sslify import SSLify
 
-from . import __version__ as version
+from . version import __version__ as version
 
 from . filters import datetimefilter
 from . error import error_not_found
 from . config import config_env_files
+
 
 def load_extensions(app):
     Bootstrap(app)
@@ -22,6 +24,7 @@ def load_extensions(app):
     CORS(app)
     DebugToolbarExtension(app)
     CSRFProtect(app)
+    SSLify(app)
 
 def register_blueprints(app):
     from . views import root, api

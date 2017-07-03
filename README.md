@@ -12,7 +12,7 @@
 
 # What is it?
 
-`Explain To Me` is a automatic text summarizer, that utilizes
+`ExplainToMe` is a automatic text summarizer, that utilizes
 [TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf),
 a graph based algorithm to scans through the contents of a website to
 extract a concise machine generated summary. The methodology is similar

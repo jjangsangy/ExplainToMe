@@ -9,7 +9,14 @@ Automatic Web Article Summarizer
 
 from setuptools import setup
 
-from ExplainToMe import __version__ as version
+from pkg_resources import resource_filename, resource_exists
+
+def load_version(*filepath):
+    assert resource_exists(*filepath)
+    namespace = {}
+    with open(resource_filename(*filepath)) as f:
+        exec(compile(f.read(), filepath[-1], 'exec'), namespace)
+    return namespace
 
 setup(
     name='ExplainToMe',
@@ -25,7 +32,7 @@ setup(
     author_email='jjangsangy@gmail.com',
     include_package_data=True,
     packages=['ExplainToMe'],
-    version=version,
+    version=load_version('ExplainToMe', 'version.py'),
     install_requires=['requests', 'sumy'],
     zip_safe=False,
     classifiers=[

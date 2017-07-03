@@ -1,0 +1,3 @@
+include .env .app.json Dockerfile nltk.txt Pipfile Pipfile.lock runtime.txt
+recursive-include ExplainToMe/static
+recursive-include ExplainToMe/templates

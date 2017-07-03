@@ -1,9 +1,18 @@
 import json
 
+try:
+    from collections import ChainMap
+except ImportError:
+    from chainmap import ChainMap
+
 from sumy.nlp.tokenizers import Tokenizer
-from collections import ChainMap
 from flask import Blueprint, render_template, request, session
 from flask import current_app as app
+
+try:
+    from collections import ChainMap
+except ImportError:
+    from chainmap import ChainMap
 
 from .. forms import LinkForm
 from .. textrank import get_parser, run_summarizer

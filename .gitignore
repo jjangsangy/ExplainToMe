@@ -55,5 +55,7 @@ src/
 *.ipynb
 .ipynb_checkpoints/
 wsj.txt
+dist/
+build/
 # }}}
 #

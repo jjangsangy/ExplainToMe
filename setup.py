@@ -7,16 +7,17 @@ Automatic Web Article Summarizer
 :copyright (c) 2015 Sang Han:
 """
 
+import os
 from setuptools import setup
 
-from pkg_resources import resource_filename, resource_exists
-
 def load_version(*filepath):
-    assert resource_exists(*filepath)
+    filepath = os.sep.join(filepath)
     namespace = {}
-    with open(resource_filename(*filepath)) as f:
-        exec(compile(f.read(), filepath[-1], 'exec'), namespace)
+    with open(filepath) as f:
+        exec(compile(f.read(), filepath, 'exec'), {}, namespace)
     return namespace
+
+ver = load_version('ExplainToMe', 'version.py')
 
 setup(
     name='ExplainToMe',
@@ -32,7 +33,7 @@ setup(
     author_email='jjangsangy@gmail.com',
     include_package_data=True,
     packages=['ExplainToMe'],
-    version=load_version('ExplainToMe', 'version.py'),
+    version=ver['__version__'],
     install_requires=['requests', 'sumy'],
     zip_safe=False,
     classifiers=[

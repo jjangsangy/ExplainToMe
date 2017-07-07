@@ -1,4 +1,4 @@
-from dateutil import parser
+from dateutil.parser import parser
 
 def datetimefilter(value, format='%Y/%m/%d %H:%M'):
     p = parser()

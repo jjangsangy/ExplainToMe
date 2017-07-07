@@ -56,13 +56,12 @@
     <div class="clearfix"></div>
 
     <!-- Article Image -->
-    {% if meta['url'] %}
+    {% if meta['image'] %}
     <h3>Article Image</h3>
     <div class="row">
-        <a href="{{ url }}">
-            <img src="{{ meta['url'] }}" class="img-thumbnail">
-        </a>
+        <a href="{{ url }}"><img src="{{ meta['image']['url'] }}" class="img-thumbnail" /></a>
     </div>
+
     {% endif %}
 
 

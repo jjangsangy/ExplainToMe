@@ -10,6 +10,7 @@ class LinkForm(Form):
         'url',
         validators=[Required(), InputRequired(), URL()],
         id='url',
+        render_kw={'placeholder': 'URL https://...'}
     )
     max_sent = IntegerField(
         'max_sent',

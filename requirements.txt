@@ -1,11 +1,11 @@
 Flask==0.12.2
 Flask-Assets==0.11
 Flask-Bootstrap==3.3.7.1
-Flask-CORS==2.1.2
 Flask-Debugtoolbar==0.10.1
 Flask-Heroku==0.1.9
 Flask-Script==2.0.5
 Flask-WTF==0.14.2
+Flask-Cors==3.0.3
 futures==3.1.1
 chainmap==1.0.2
 ipython>=5.3.0,<6.0.0

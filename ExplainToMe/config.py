@@ -30,7 +30,8 @@ class Development(Base):
     DEBUG_TB_TEMPLATE_EDITOR_ENABLED = True
     DEVELOPMENT = True
     TESTING = False
-    SERVER_NAME = 'localhost:5000'
+    WTF_CSRF_SSL_STRICT = False
+    WTF_CSRF_CHECK_DEFAULT = False
 
 
 class Testing(Base):

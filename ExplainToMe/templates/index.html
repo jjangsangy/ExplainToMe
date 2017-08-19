@@ -15,6 +15,7 @@
             {{ form.hidden_tag() }}
             {{ render_field(form.url, required=true) }}
             {{ render_field(form.max_sent, required=true) }}
+            {{ render_field(form.language, required=true) }}
             <div class="form-group">
                 <button id="send" type="submit" class="btn btn-success">
                     <span class="glyphicon glyphicon-send"></span> Send

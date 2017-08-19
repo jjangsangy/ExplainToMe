@@ -12,6 +12,9 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer
 from sumy.utils import cached_property, get_stop_words
 from itertools import chain
+from sumy.nlp.tokenizers import Tokenizer
+
+from iso639 import languages
 
 if six.PY2:
     str = six.text_type
@@ -114,7 +117,11 @@ def run_summarizer(parser, sentences, language='english'):
             for sentence in summarizer(parser.document, sentences)]
 
 
-def get_parser(url, tokenizer):
+def get_lang(name):
+    return languages.inverted.get(name.title()).part1
+
+def get_parser(url, language):
+    tokenizer = Tokenizer(language)
     useragent = ' '.join([
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6)",
         "AppleWebKit/537.36 (KHTML, like Gecko)",
@@ -127,13 +134,17 @@ def get_parser(url, tokenizer):
         extra_headers['Referer'] = r'https://t.co/T1323aaaa'
     # Scrape Web Page With HTMLParser and Goose and select the best scrape
     html_parser = HtmlParser.from_url(url, tokenizer, **extra_headers)
-    article = Goose({'browser_user_agent': useragent})
+    article = Goose({'browser_user_agent': useragent, 'target_language': get_lang(language)})
 
     # Goose raises IndexError when requesting unfamiliar sites.
     try:
         extract = article.extract(url=url)
     except:
-        extract = article.extract(raw_html=requests.get(url).text)
+        req = requests.get(url)
+        print(req.apparent_encoding)
+        extract = article.extract(
+            raw_html=req.content.decode(encoding=req.apparent_encoding)
+        )
 
     goose_parser = PlaintextParser(extract, tokenizer)
 

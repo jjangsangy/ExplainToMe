@@ -25,7 +25,7 @@ def index():
     if form.validate_on_submit():
         url, max_sent, language = request.form.get('url'), request.form.get('max_sent'), request.form.get('language')
         #language = 'english'
-        parser, meta = get_parser(url, Tokenizer(language))
+        parser, meta = get_parser(url, language)
         new_meta = meta.pop('meta', {})
         meta.update(new_meta)
         session['summary'] = run_summarizer(parser, max_sent, language=language)

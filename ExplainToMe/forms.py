@@ -23,5 +23,6 @@ class LinkForm(Form):
         'language',
         validators=[Required(), InputRequired()],
         id='language',
-        choices=[('english','English'), ('chinese', 'Chinese'), ('czech', 'Czech'), ('french', 'French'), ('german', 'German'), ('japanese', 'Japanese'), ('portuguese', 'Portuguese'), ('slovak', 'Slovak'), ('spanish', 'Spanish')]
+        choices=[('english','English'), ('chinese', 'Chinese'), ('czech', 'Czech'), ('french', 'French'), ('german', 'German'), ('japanese', 'Japanese'), ('portuguese', 'Portuguese'), ('slovak', 'Slovak'), ('spanish', 'Spanish')],
+        default='english'
     )

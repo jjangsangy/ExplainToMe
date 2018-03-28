@@ -1,16 +1,11 @@
-{% extends "bootstrap/base.html" %}
-
-{% import "bootstrap/fixes.html" as fixes %}
-{% import "bootstrap/google.html" as google %}
+{% extends "bootstrap/base.html" %} {% import "bootstrap/fixes.html" as fixes %} {% import "bootstrap/google.html" as google
+%}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-{% block head %}
 
-    {% block meta %}
-        {% include "includes/meta.html" %}
-    {% endblock %}
+<head>
+    {% block head %} {% block meta %} {% include "includes/meta.html" %} {% endblock %}
 
 
     <title>
@@ -19,73 +14,57 @@
 
 
     {% block favicon %}
-        <link type="image/x-icon" rel="icon" href="/favicon.ico" />
-    {% endblock favicon %}
+    <link type="image/x-icon" rel="icon" href="/favicon.ico" /> {% endblock favicon %} {% block styles %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
 
-    {% block styles %}
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="https://bootswatch.com/readable/bootstrap.min.css" rel="stylesheet" />
-        <link href="{{ url_for('static', filename='css/style.css') }}" rel=stylesheet />
-        <link href="{{ url_for('static', filename='css/animation.css') }}" rel=stylesheet />
-    {% endblock styles %}
-
-    {{ fixes.ie8() }}
-    {{ google.uanalytics('UA-51412306-6') }}
-
-{% endblock %}
+    <link href="https://bootswatch.com/3/readable/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel=stylesheet />
+    <link href="{{ url_for('static', filename='css/animation.css') }}" rel=stylesheet /> {% endblock styles %} {{ fixes.ie8() }} {{ google.uanalytics('UA-51412306-6') }} {% endblock %}
 </head>
 
 <body>
-{% block body %}
+    {% block body %} {% block navbar %} {% include 'includes/nav.html' %} {% endblock %}
 
-{% block navbar %}
-{% include 'includes/nav.html' %}
-{% endblock %}
-
-<a id="run" name="run"></a>
-<div class="intro-header">
-    <div class="container">
-        <div class="row">
-            {% block run %}{% endblock run %}
+    <a id="run" name="run"></a>
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                {% block run %}{% endblock run %}
+            </div>
         </div>
     </div>
-</div>
 
-<a id="summary" name="summary"></a>
-<div class="content-section-a">
-    <div class="container">
-        <div class="row">
-            {% block summary %}{% endblock summary %}
+    <a id="summary" name="summary"></a>
+    <div class="content-section-a">
+        <div class="container">
+            <div class="row">
+                {% block summary %}{% endblock summary %}
+            </div>
         </div>
     </div>
-</div>
 
-<a id="about" name="about"></a>
-<div class="banner">
-    <div class="container">
-        <div class="row">
-            {% block about %}{% endblock about %}
+    <a id="about" name="about"></a>
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                {% block about %}{% endblock about %}
+            </div>
         </div>
     </div>
-</div>
 
 
-<a id="contact" name="contact">
-<div class="content-section-b">
-    <div class="container">
-        <div class="row">
-            {% block contact %}{% endblock contact %}
+    <a id="contact" name="contact">
+        <div class="content-section-b">
+            <div class="container">
+                <div class="row">
+                    {% block contact %}{% endblock contact %}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-{% include 'includes/footer.html' %}
-
-{% block scripts %}
-    {{ super() }}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/site.js') }}"></script>
-{% endblock scripts %}
-
-{% endblock body %}
+        {% include 'includes/footer.html' %} {% block scripts %} {{ super() }}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/site.js') }}"></script>
+        {% endblock scripts %} {% endblock body %}
 </body>
+
 </html>

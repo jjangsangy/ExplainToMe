@@ -26,11 +26,12 @@ def load_extensions(app):
     CSRFProtect(app)
     SSLify(app)
 
+
 def register_blueprints(app):
     from . views import root, api
     app.register_blueprint(root)
-    app.register_blueprint(api,
-        url_prefix='/api/v{version}'.format(version=version))
+    app.register_blueprint(api, url_prefix='/api/v{version}'.format(version=version))
+
 
 def register_handlers(app):
     app.register_error_handler(404, error_not_found)

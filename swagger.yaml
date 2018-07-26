@@ -1,0 +1,214 @@
+basePath: /api/v1.1.1/
+host: explaintome-app.herokuapp.com
+info:
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  title: ExplainToMe API
+  version: 1.1.1
+  contact:
+    email: jjangsangy@gmail.com
+    name: Sang Han
+    url: 'https://angel.co/sanghan'
+  description: '[![travis](https://travis-ci.org/jjangsangy/ExplainToMe.svg?branch=master)](https://travis-ci.org/jjangsangy/ExplainToMe)
+
+    [![licence](https://img.shields.io/pypi/l/coverage.svg)](https://github.com/jjangsangy/ExplainToMe/blob/master/LICENSE)
+
+
+    ## Automatic Web Article Summarizer
+
+
+    ![image](https://github.com/jjangsangy/ExplainToMe/raw/master/static/front.jpg)
+
+
+    [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+
+    # What is it?
+
+
+    `Explain To Me` is a automatic text summarizer, that utilizes
+
+    [TextRank](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf),
+
+    a graph based algorithm to scans through the contents of a website to
+
+    extract a concise machine generated summary. The methodology is similar
+
+    to the way search engines return the most relevant web pages from a
+
+    users search query.
+
+    '
+consumes: [application/json]
+definitions:
+  Article:
+    description: Article Summary Details
+    properties:
+      lang:
+        description: Article language
+        enum: [en zn-ch zn-tw de pt fr it ja ko es]
+        example: en
+        readOnly: true
+        type: string
+      max_sent: 
+        default: 10
+        description: Maximum number of sentences returned
+        format: integer
+        maximum: 100
+        minimum: 1
+        type: integer
+      url:
+        description: Web Article URL
+        example: 'https://www.technologyreview.com/s/513696/deep-learning/'
+        format: uri
+        type: string
+    required: [url]
+    title: Article
+    type: object
+  Error:
+    title: Error
+    properties:
+      code:
+        enum: [bad_request unauthorized forbidden not_found method_not_allowed conflict
+            precondition_failed too_many_requests internal_server_error unavailable]
+        type: string
+      status:
+        example: 404
+        format: int32
+        maximum: 600
+        minimum: 200
+        type: integer
+      type: {type: string}
+  Error404:
+    allOf:
+    - {$ref: '#/definitions/Error'}
+    title: Error404
+    type: object
+  Extract:
+    description: Article Sentence
+    title: Extracted sentence
+    type: string
+  Image:
+    description: Extracted image metadata
+    properties:
+      height: {format: int32, type: integer}
+      type: {type: string}
+      url: {format: uri, type: string}
+      width: {format: int32, type: integer}
+    title: Image
+    type: object
+  MetaData:
+    description: WebPage Metadata
+    properties:
+      authors:
+        items: {type: string}
+        type: array
+      domain: {format: uri, type: string}
+      image: {$ref: '#/definitions/Image'}
+      meta: {$ref: '#/definitions/MetaMeta'}
+      opengraph: {type: object}
+      publish_date: {format: date-time, type: string}
+      tags:
+        items: {type: string}
+        type: array
+      title: {type: string}
+    title: Metadata
+    type: object
+  MetaMeta:
+    description: Metadata Metadata
+    properties:
+      canonical: {format: uri, type: string}
+      favicon: {format: uri, type: string}
+    title: MetaMeta
+  Summary:
+    allOf:
+    - {$ref: '#/definitions/Article'}
+    - properties:
+        meta: {$ref: '#/definitions/MetaData'}
+        summary:
+          items: {$ref: '#/definitions/Extract'}
+          minItems: 0
+          type: array
+      type: object
+    description: Article Summary and Metadata
+    title: Summary
+    type: object
+paths:
+  /summary:
+    post:
+      parameters:
+      - in: body
+        name: Request
+        schema: {$ref: '#/definitions/Article'}
+      responses:
+        200:
+          description: Response Summary
+          examples:
+            application/json:
+              max_sent: 10
+              meta:
+                authors: []
+                domain: www.technologyreview.com
+                image: {height: 459, type: image, url: 'https://d267cvn3rvuq91.cloudfront.net/i/images/building.a.brain_.timelinex519_0.jpg?sw=373',
+                  width: 373}
+                meta: {canonical: 'https://www.technologyreview.com/s/513696/deep-learning/',
+                  description: 'With massive amounts of computational power, machines
+                    can now recognize objects and translate speech in real time. Artificial
+                    intelligence is finally getting smart.', favicon: '', keywords: '',
+                  lang: en}
+                opengraph: {description: 'With massive amounts of computational power,
+                    machines can now recognize objects and translate speech in real
+                    time. Artificial intelligence is finally getting smart.', image: '392',
+                  site_name: MIT Technology Review, title: 'Is Artificial Intelligence
+                    Finally Coming into Its Own?', type: article, updated_time: '2016-03-29T11:11:13-04:00',
+                  url: 'https://www.technologyreview.com/s/513696/deep-learning/'}
+                publish_date: null
+                tags: []
+                title: Is Artificial Intelligence Finally Coming into Its Own?
+              summary: [Kurzweil was attracted not just by Googles computing resources
+                  but also by the startling progress the company has made in a branch
+                  of AI called deep learning., 'The software learns, in a very real
+                  sense, to recognize patterns in digital representations of sounds,
+                  images, and other data.', 'Last June, a Google deep-learning system
+                  that had been shown 10 million images from YouTube videos proved
+                  almost twice as good as any previous image recognition effort at
+                  identifying objects such as cats.', 'Extending deep learning into
+                  applications beyond speech and image recognition will require more
+                  conceptual and software breakthroughs, not to mention many more
+                  advances in processing power.', Programmers would train a neural
+                  network to detect an object or phoneme by blitzing the network with
+                  digitized versions of images containing those objects or sound waves
+                  containing those phonemes., 'The eventual goal of this training
+                  was to get the network to consistently recognize the patterns in
+                  speech or sets of images that we humans know as, say, the phoneme
+                  da or the image of a dog.', And complex speech or image recognition
+                  required more computer power than was then available., A team led
+                  by Stanford computer science professor Andrew Ng and Google Fellow
+                  Jeff Dean showed the system images from 10 million randomly selected
+                  YouTube videos., 'Training the many layers of virtual neurons in
+                  the experiment took 16,000 computer processorsathe kind of computing
+                  infrastructure that Google has developed for its search engine and
+                  other services.', 'Though Kurzweila vision is still years from reality,
+                  deep learning is likely to spur other applications beyond speech
+                  and image recognition in the nearer term.']
+              url: https://www.technologyreview.com/s/513696/deep-learning/
+          schema: {$ref: '#/definitions/Summary'}
+        404:
+          description: Resource Not Found
+          schema: {$ref: '#/definitions/Error404'}
+        default:
+          description: Unexpected error
+          examples:
+            application/json: {code: not_found, status: 404, type: error}
+          schema: {$ref: '#/definitions/Error'}
+      tags: [Article]
+produces: [application/json]
+schemes: [https]
+swagger: '2.0'
+tags:
+- {description: URL String, name: URL}
+- {description: Document, name: Article}
+- description: Process of reducing a text document that retains original message.
+  externalDocs: {description: Wikipedia, url: 'https://en.wikipedia.org/wiki/Automatic_summarization'}
+  name: Summary

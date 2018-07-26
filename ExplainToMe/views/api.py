@@ -7,7 +7,7 @@ api = Blueprint('api', __name__)
 
 @api.route('/summary', methods=['POST'])
 def summary():
-    if request.is_json():
+    if request.is_json:
         data = request.get_json()
         url = data.get('url', 'https://www.wsj.com/articles/how-panera-solved-its-mosh-pit-problem-1496395801')
         max_sent = data.get('max_sent', 10)

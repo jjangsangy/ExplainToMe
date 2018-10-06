@@ -79,7 +79,7 @@ If you are getting started on OS X, the [Docker toolbox](https://docs.docker.com
 is the first thing to checkout.
 
 ```bash
-$ docker run -it -p 5000:5000 jjangsangy/ExplainToMe:latest
+$ docker run -it -p 5000:5000 jjangsangy/explaintome:latest
 ```
 
 Once the server is running, navigate to either localhost:5000 (on Linux) or
